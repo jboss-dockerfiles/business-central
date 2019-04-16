@@ -1,0 +1,26 @@
+version: '2'
+
+volumes:
+  mysql_data:
+    driver: local
+
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+    - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jbpm
+      MYSQL_USER: jbpm
+      MYSQL_PASSWORD: jbpm
+  jbpm:
+    image: jboss/jbpm-server-full
+    environment:
+      JBPM_DB_DRIVER: mysql
+      JBPM_DB_HOST: mysql
+    ports:
+    - 8080:8080
+    - 8001:8001
+    depends_on:
+    - mysql

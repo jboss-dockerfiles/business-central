@@ -1,0 +1,25 @@
+version: '2'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:9.6
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: jbpm
+      POSTGRES_USER: jbpm
+      POSTGRES_PASSWORD: jbpm
+  jbpm:
+    image: jboss/jbpm-server-full
+    environment:
+      JBPM_DB_DRIVER: postgres
+      JBPM_DB_HOST: postgres
+    ports:
+    - 8080:8080
+    - 8001:8001
+    depends_on:
+    - postgres

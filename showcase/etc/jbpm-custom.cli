@@ -1,0 +1,50 @@
+embed-server --server-config=standalone.xml
+
+if (outcome != success) of /subsystem=security/security-domain=other/authentication=classic/login-module=org.kie.security.jaas.KieLoginModule:read-resource
+    /subsystem=security/security-domain=other/authentication=classic/login-module=org.kie.security.jaas.KieLoginModule:add(code=org.kie.security.jaas.KieLoginModule, flag=required, module=deployment.business-central.war)
+end-if
+
+if (outcome != success) of /system-property=org.kie.demo:read-resource
+	/system-property=org.kie.server.id:add(value="${org.kie.demo:true}")
+else
+    /system-property=org.kie.demo:write-attribute(name=value,value="${org.kie.demo:true}")
+end-if
+
+if (outcome != success) of /system-property=org.kie.example:read-resource
+	/system-property=org.kie.example:add(value="${org.kie.example:true}")
+else
+    /system-property=org.kie.example:write-attribute(name=value,value="${org.kie.example:true}")
+end-if
+
+if (outcome != success) of /system-property=org.jbpm.designer.perspective:read-resource
+	/system-property=org.jbpm.designer.perspective:add(value="${org.jbpm.designer.perspective:full}")
+else
+    /system-property=org.jbpm.designer.perspective:write-attribute(name=value,value="${org.jbpm.designer.perspective:full}")
+end-if
+
+if (outcome != success) of /system-property=designerdataobjects:read-resource
+	/system-property=designerdataobjects:add(value="${designerdataobjects:false}")
+else
+    /system-property=designerdataobjects:write-attribute(name=value,value="${designerdataobjects:false}")
+end-if
+
+if (outcome != success) of /system-property=org.uberfire.nio.git.ssh.host:read-resource
+	/system-property=org.uberfire.nio.git.ssh.host:add(value="0.0.0.0")
+else
+    /system-property=org.uberfire.nio.git.ssh.host:write-attribute(name=value,value="0.0.0.0")
+end-if
+
+if (outcome != success) of /system-property=appformer.experimental.features:read-resource
+	/system-property=appformer.experimental.features:add(value="true")
+else
+    /system-property=appformer.experimental.features:write-attribute(name=value,value="true")
+end-if
+
+# Make GIT repositories root directory at /opt/jboss/wildfly/mygit.
+# if (outcome != success) of /system-property=org.uberfire.nio.git.dir:read-resource
+# 	/system-property=org.uberfire.nio.git.dir:add(value="/opt/jboss/wildfly/mygit")
+# else
+#     /system-property=org.uberfire.nio.git.dir:write-attribute(name=value,value="/opt/jboss/wildfly/mygit")
+# end-if
+
+stop-embedded-server

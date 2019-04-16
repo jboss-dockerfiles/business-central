@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  business-central:
+    image: jboss/jbpm-workbench-showcase
+    ports:
+    - 8080:8080
+    - 8001:8001
+  kie-server:
+    image: jboss/kie-server-showcase
+    environment:
+      KIE_SERVER_LOCATION: http://kie-server:8080/kie-server/services/rest/server
+      KIE_SERVER_CONTROLLER: http://business-central:8080/business-central/rest/controller
+      KIE_MAVEN_REPO: http://business-central:8080/business-central/maven2
+    ports:
+      - 8180:8080
+    depends_on:
+      - business-central
