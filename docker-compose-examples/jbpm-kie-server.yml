@@ -2,7 +2,7 @@ version: '2'
 
 services:
   business-central:
-    image: jboss/jbpm-workbench-showcase
+    image: jboss/business-central-workbench-showcase
     ports:
     - 8080:8080
     - 8001:8001
