@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  jbpm:
+    image: jboss/jbpm-server-full
+    ports:
+      - 8080:8080
+      - 8001:8001
+
+  prometheus:
+    image: prom/prometheus:v2.8.0
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - '9090:9090'
+    depends_on:
+      - jbpm
+
+  grafana:
+    image: grafana/grafana:6.0.1
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
