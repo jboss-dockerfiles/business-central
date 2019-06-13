@@ -1,6 +1,9 @@
 /target
 /local
 
+# pid of containers
+/*.pid
+
 # Eclipse, Netbeans and IntelliJ files
 /.*
 !.gitignore
