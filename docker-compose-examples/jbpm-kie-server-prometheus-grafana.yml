@@ -2,7 +2,7 @@ version: '2'
 
 services:
   jbpm:
-    image: jboss/jbpm-server-full
+    image: jboss/jbpm-server-full:latest
     ports:
       - 8080:8080
       - 8001:8001
