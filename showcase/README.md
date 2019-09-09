@@ -23,7 +23,7 @@ Introduction
 The image contains:
 
 * JBoss Wildfly 14.0.1.Final
-* JBoss Business-Central Workbench 7.25.0.Final
+* JBoss Business-Central Workbench 7.26.0.Final
 
 This image inherits from `jboss/business-central-workbench:latest` and provides some additional configurations:
 
@@ -184,7 +184,7 @@ Notes
 -----
 
 * The context path for JBoss Business-Central Workbench web application is `business-central`
-* JBoss Business-Central Workbench version is `7.25.0.Final`
+* JBoss Business-Central Workbench version is `7.26.0.Final`
 * JBoss Business-Central Workbench requires running JBoss Wildfly 14.0.1 using the `full` server profile
 * Examples and demos are always available, also when not connected to internet
 * No support for clustering
@@ -199,6 +199,6 @@ versions > 7.18.0.Final
 Release notes
 --------------
 
-**7.25.0.Final**
+**7.26.0.Final**
 
-* See release notes for [JBoss Business-Central](http://docs.jboss.org/jbpm/release/7.25.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [JBoss Business-Central](http://docs.jboss.org/jbpm/release/7.26.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
