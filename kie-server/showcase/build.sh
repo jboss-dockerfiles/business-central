@@ -5,7 +5,7 @@
 # ************************************************
 
 IMAGE_NAME="jboss/kie-server-showcase"
-IMAGE_TAG="7.26.0.Final"
+IMAGE_TAG="latest"
 
 
 # Build the container image.
