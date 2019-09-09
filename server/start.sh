@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="jbpm-server-full"
 IMAGE_NAME="jboss/jbpm-server-full"
-IMAGE_TAG="latest"
+IMAGE_TAG="7.26.0.Final"
 
 
 function usage
