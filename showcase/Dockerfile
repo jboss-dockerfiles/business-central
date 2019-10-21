@@ -1,9 +1,9 @@
 ###############################################################################################
-# Dockerfile that provides the image for JBoss Business-Central Workbench 7.27.0.Final Showcase
+# Dockerfile that provides the image for JBoss Business-Central Workbench 7.28.0.Final Showcase
 ###############################################################################################
 
 ####### BASE ############
-FROM jboss/business-central-workbench:7.27.0.Final
+FROM jboss/business-central-workbench:7.28.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
