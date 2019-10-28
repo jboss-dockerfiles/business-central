@@ -40,7 +40,7 @@ if [ -f docker.pid ]; then
     echo "Container already started"
     container_id=$(cat docker.pid)
     echo "Stopping container $container_id..."
-    docker stop $container_id
+    podman stop $container_id
     docker rm $container_id
     rm -f docker.pid
 fi
@@ -48,8 +48,8 @@ fi
 # Start the JBoss jBPM Server Full docker container
 echo "Starting $CONTAINER_NAME docker container using:"
 echo "** Container name: $CONTAINER_NAME"
-image_jbpm_workbench=$(docker run -P -d --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG)
-ip_jbpm_workbench=$(docker inspect $image_jbpm_workbench | grep -m 1 \"IPAddress\" | awk '{print $2}' | tr -d '",')
+image_jbpm_workbench=$(podman run -P -d --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG)
+ip_jbpm_workbench=$(podman inspect --format='{{.NetworkSettings.IPAddress}}' $image_jbpm_workbench)
 echo $image_jbpm_workbench > docker.pid
 
 # End

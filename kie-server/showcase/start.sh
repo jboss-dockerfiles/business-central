@@ -40,15 +40,15 @@ if [ -f docker.pid ]; then
     echo "Container already started"
     container_id=$(cat docker.pid)
     echo "Stopping container $container_id..."
-    docker stop $container_id
+    podman stop $container_id
     rm -f docker.pid
 fi
 
 # Start the docker container
 echo "Starting $CONTAINER_NAME docker container using:"
 echo "** Container name: $CONTAINER_NAME"
-image_kie_server_workbench=$(docker run -P -d --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG)
-ip_kie_server_workbench=$(docker inspect $image_kie_server_workbench | grep -m 1 \"IPAddress\" | awk '{print $2}' | tr -d '",')
+image_kie_server_workbench=$(podman run -P -d --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG)
+ip_kie_server_workbench=$(podman inspect --format='{{.NetworkSettings.IPAddress}}' $image_kie_server_workbench)
 echo $image_kie_server_workbench > docker.pid
 
 # End
