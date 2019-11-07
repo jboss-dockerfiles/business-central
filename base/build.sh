@@ -5,7 +5,7 @@
 # *************************************************************
 
 IMAGE_NAME="jboss/business-central-workbench"
-IMAGE_TAG="7.29.0.Final"
+IMAGE_TAG="latest"
 
 
 # Build the container image.
