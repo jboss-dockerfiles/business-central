@@ -5,7 +5,7 @@
 # ***************************************************
 
 IMAGE_NAME="jboss/jbpm-server-full"
-IMAGE_TAG="7.32.0.Final"
+IMAGE_TAG="latest"
 
 
 # Build the container image.

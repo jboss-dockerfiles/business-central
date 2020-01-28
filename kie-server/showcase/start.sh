@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="kie-server-showcase"
 IMAGE_NAME="jboss/kie-server-showcase"
-IMAGE_TAG="7.32.0.Final"
+IMAGE_TAG="latest"
 
 
 function usage
