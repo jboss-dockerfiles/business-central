@@ -92,7 +92,7 @@ In order to extend this image, your Dockerfile must inherit from:
 
 * The Wildfly configuration files are located at `/opt/jboss/wildfly/standalone/configuration`                   
 * In this file you can modify all Wildfly's subsystem configurations                           
-* Drools KIE Server requires running Wildfly using `full` profile, so custom modifications should be done in `standalone-full.xml` configuration file                      
+* Custom modifications should be done in `standalone.xml` configuration file                      
 
 **Users and roles**
 
@@ -114,7 +114,7 @@ These are the steps to create your custom users and roles by using realm files i
         ---------------------
         kieserver=kie-server
 
-3.- Modify your `standalone-full.xml` in order to:                
+3.- Modify your `standalone.xml` in order to:                
         
 3.1 - In the `management` section, modify default the security-realm for the `ApplicationRealm` as:                   
 
@@ -155,7 +155,6 @@ Notes
 
 * The context path for Drools KIE Server application services is `kie-server`
 * Drools KIE Server version is `7.32.0.Final`
-* Drools KIE Server requires running JBoss Wildfly 14.0.1.Final using the `full` server profile
 * No users or roles are configured by default               
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
