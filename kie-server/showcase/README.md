@@ -95,7 +95,6 @@ Notes
 
 * The context path for Drools KIE Server application services is `kie-server`
 * Drools KIE Server version is `7.32.0.Final`
-* Drools KIE Server requires running JBoss Wildfly 14.0.1.Final using the `full` server profile
 * In order to perform container linking with a jBPM / Drools Workbench image, the link alias must be `kie-wb`       
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      

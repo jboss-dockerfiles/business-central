@@ -115,7 +115,7 @@ In order to extend this image, your Dockerfile must inherit from:
 
 * The Wildfly configuration files are located at `/opt/jboss/wildfly/standalone/configuration`                   
 * In this file you can modify all Wildfly's subsystem configurations                           
-* JBoss Business-Central Workbench requires running Wildfly using `full` profile, so custom modifications should be done in `standalone-full.xml` configuration file
+* Custom modifications should be done in `standalone.xml` configuration file
 
 **Users and roles**
 
@@ -164,7 +164,7 @@ These are the steps to create your custom users and roles by using realm files i
         manager=manager
         user=user
 
-3.- Modify your `standalone-full.xml` in order to:                
+3.- Modify your `standalone.xml` in order to:                
         
 3.1 - In the `management` section, modify default the security-realm for the `ApplicationRealm` as:                   
 
@@ -218,7 +218,6 @@ Notes
 
 * The context path for JBoss Business-Central Workbench web application is `business-central`
 * JBoss Business-Central Workbench version is `7.32.0.Final`
-* JBoss Business-Central Workbench requires running JBoss Wildfly 14.0.1.Final using the `full` server profile
 * No users or roles are configured by default               
 * No support for clustering                
 * Use of embedded H2 database server by default               

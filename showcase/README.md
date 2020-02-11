@@ -185,7 +185,6 @@ Notes
 
 * The context path for JBoss Business-Central Workbench web application is `business-central`
 * JBoss Business-Central Workbench version is `7.32.0.Final`
-* JBoss Business-Central Workbench requires running JBoss Wildfly 14.0.1 using the `full` server profile
 * Examples and demos are always available, also when not connected to internet
 * No support for clustering
 * Use of embedded H2 database server by default

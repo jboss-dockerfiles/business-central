@@ -185,7 +185,6 @@ Notes
 * The context path for KIE Server web application is `kie-server`
 * jBPM Case Management Showcase version is `7.32.0.Final`
 * The context path for jBPM Case Management Showcase web application is `jbpm-casemgmt`
-* jBPM Server Full requires running JBoss Wildfly 14.0.1 using the `full` server profile
 * Examples and demos are always available, also when not connected to internet
 * No support for clustering
 * Use of embedded H2 database server by default
