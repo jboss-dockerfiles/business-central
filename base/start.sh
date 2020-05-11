@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="business-central"
 IMAGE_NAME="jboss/business-central-workbench"
-IMAGE_TAG="7.37.0.Final"
+IMAGE_TAG="latest"
 
 
 
