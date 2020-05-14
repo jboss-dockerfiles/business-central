@@ -22,7 +22,7 @@ Introduction
 
 The image contains:
 
-* JBoss Wildfly 14.0.1.Final
+* JBoss Wildfly 18.0.1.Final
 * JBoss Business-Central Workbench 7.37.0.Final
 
 This image inherits from `jboss/business-central-workbench:latest` and provides some additional configurations:

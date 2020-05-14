@@ -22,7 +22,7 @@ Introduction
 
 The image contains: 
               
-* JBoss Wildfly 14.0.1.Final
+* JBoss Wildfly 18.0.1.Final
 * JBoss Drools KIE Server 7.37.0.Final
 
 This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the Drools runtime execution server!                   

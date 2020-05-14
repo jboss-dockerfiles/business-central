@@ -24,7 +24,7 @@ Introduction
 
 The image contains:
 
-* JBoss Wildfly 14.0.1.Final
+* JBoss Wildfly 18.0.1.Final
 * jBPM Workbench 7.37.0.Final
 * KIE Server 7.37.0.Final
 * jBPM Case Management Showcase 7.37.0.Final

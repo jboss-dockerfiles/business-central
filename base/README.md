@@ -21,7 +21,7 @@ Introduction
 
 The image contains:  
              
-* JBoss Wildfly 14.0.1.Final
+* JBoss Wildfly 18.0.1.Final
 * JBoss Business-Central Workbench 7.37.0.Final
 
 This image provides the JBoss Business-Central Workbench. It's intended to be extended so you can add your custom configurations.
