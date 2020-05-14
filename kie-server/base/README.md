@@ -22,7 +22,7 @@ Introduction
 
 The image contains:    
            
-* JBoss Wildfly 14.0.1.Final
+* JBoss Wildfly 18.0.1.Final
 * JBoss Drools KIE Server 7.37.0.Final
 
 This image provides the Drools KIE Server. It's intended to be extended so you can add your custom configurations.                 

@@ -3,7 +3,7 @@
 ######################################################################################
 
 ####### BASE ############
-FROM jboss/wildfly:14.0.1.Final
+FROM jboss/wildfly:18.0.1.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -12,7 +12,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
 ENV KIE_VERSION 7.37.0.Final
-ENV KIE_CLASSIFIER wildfly14
+ENV KIE_CLASSIFIER wildfly18
 ENV KIE_CONTEXT_PATH business-central
 ENV JAVA_OPTS -Xms256m -Xmx2048m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
 ENV KIE_SERVER_PROFILE standalone
