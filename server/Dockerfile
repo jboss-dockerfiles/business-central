@@ -1,5 +1,5 @@
 ############################################################################
-# Dockerfile that provides the image for JBoss jBPM Server Full 7.37.0.Final
+# Dockerfile that provides the image for JBoss jBPM Server Full 7.38.0.Final
 ############################################################################
 
 ####### BASE ############
@@ -11,7 +11,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://download.jboss.org/jbpm/release
-ENV KIE_VERSION 7.37.0.Final
+ENV KIE_VERSION 7.38.0.Final
 ENV KIE_CLASSIFIER wildfly18
 ENV KIE_CONTEXT_PATH business-central
 ENV KIE_SERVER_ID sample-server
