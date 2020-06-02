@@ -1,6 +1,6 @@
-###############################################################################################
-# Dockerfile that provides the image for JBoss Business-Central Workbench 7.38.0.Final Showcase
-###############################################################################################
+#########################################################################
+# Dockerfile that provides the image for JBoss Business-Central Workbench
+#########################################################################
 
 ####### BASE ############
 FROM jboss/business-central-workbench:7.38.0.Final
