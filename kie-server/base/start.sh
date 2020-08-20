@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="kie-server"
 IMAGE_NAME="jboss/kie-server"
-IMAGE_TAG="latest"
+IMAGE_TAG="7.42.0.Final"
 
 
 function usage
