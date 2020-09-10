@@ -11,7 +11,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 7.42.0.Final
+ENV KIE_VERSION 7.43.0.Final
 ENV KIE_CLASSIFIER wildfly19
 ENV KIE_CONTEXT_PATH business-central
 ENV JAVA_OPTS -Xms256m -Xmx2048m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
