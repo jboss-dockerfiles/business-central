@@ -5,7 +5,7 @@
 # ********************************************
 
 IMAGE_NAME="jboss/kie-server"
-IMAGE_TAG="7.48.0.Final"
+IMAGE_TAG="latest"
 
 
 # Build the container image.
