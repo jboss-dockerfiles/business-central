@@ -3,7 +3,7 @@
 #########################################################
 
 ####### BASE ############
-FROM jboss/kie-server:7.55.0.Final
+FROM jboss/kie-server:7.56.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
