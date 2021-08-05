@@ -3,7 +3,7 @@
 #########################################################################
 
 ####### BASE ############
-FROM jboss/business-central-workbench:7.57.0.Final
+FROM jboss/business-central-workbench:7.58.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
