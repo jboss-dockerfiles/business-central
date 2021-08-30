@@ -104,6 +104,6 @@ Notes
 Release notes
 -------------
 
-**7.58.0.Final**
+**7.59.0.Final**
 
 * See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.58.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
