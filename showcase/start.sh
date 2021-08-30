@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="business-central-workbench-showcase"
 IMAGE_NAME="jboss/business-central-workbench-showcase"
-IMAGE_TAG="7.59.0.Final"
+IMAGE_TAG="latest"
 
 
 function usage
