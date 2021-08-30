@@ -3,7 +3,7 @@
 ###############################################################
 
 ####### BASE ############
-FROM jboss/wildfly:19.1.0.Final
+FROM jboss/wildfly:23.0.2.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -12,7 +12,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://download.jboss.org/jbpm/release
 ENV KIE_VERSION 7.58.0.Final
-ENV KIE_CLASSIFIER wildfly19
+ENV KIE_CLASSIFIER wildfly23
 ENV KIE_CONTEXT_PATH business-central
 ENV KIE_SERVER_ID sample-server
 ENV KIE_SERVER_LOCATION http://localhost:8080/kie-server/services/rest/server

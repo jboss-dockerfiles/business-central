@@ -24,7 +24,7 @@ Introduction
 
 The image contains:
 
-* JBoss Wildfly 19.1.0.Final
+* JBoss Wildfly 23.0.2.Final
 * jBPM Workbench 7.58.0.Final
 * KIE Server 7.58.0.Final
 * jBPM Case Management Showcase 7.58.0.Final
@@ -191,6 +191,7 @@ Notes
 * No support for Wildfly domain mode, just standalone mode
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.
 * Please give us your feedback or report a issue at [jBPM Setup](https://groups.google.com/forum/#!forum/jbpm-setup) or [jBPM Usage](https://groups.google.com/forum/#!forum/jbpm-usage) Google groups.
+* WildFly was upgraded to version 23.0.2.Final
 
 Release notes
 --------------
