@@ -22,7 +22,7 @@ Introduction
 
 The image contains: 
               
-* JBoss Wildfly 19.1.0.Final
+* JBoss Wildfly 23.0.2.Final
 * JBoss Drools KIE Server 7.58.0.Final
 
 This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the Drools runtime execution server!                   
@@ -99,10 +99,11 @@ Notes
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
 * Please give us your feedback or report a issue at [Drools Setup](https://groups.google.com/forum/#!forum/drools-setup) or [Drools Usage](https://groups.google.com/forum/#!forum/drools-usage) Google groups.              
+* WildFly was upgraded to version 23.0.2.Final
 
 Release notes
 -------------
 
-**7.58.0.Final**
+**7.59.0.Final**
 
 * See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.58.0.Final/drools-docs/html_single/index.html#_ch.kie.server)

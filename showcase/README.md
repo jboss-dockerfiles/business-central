@@ -22,8 +22,8 @@ Introduction
 
 The image contains:
 
-* JBoss Wildfly 19.1.0.Final
-* JBoss Business-Central Workbench 7.58.0.Final
+* JBoss Wildfly 23.0.2.Final
+* JBoss Business-Central Workbench 7.59.0.Final
 
 This image inherits from `jboss/business-central-workbench:latest` and provides some additional configurations:
 
@@ -184,7 +184,7 @@ Notes
 -----
 
 * The context path for JBoss Business-Central Workbench web application is `business-central`
-* JBoss Business-Central Workbench version is `7.58.0.Final`
+* JBoss Business-Central Workbench version is `7.59.0.Final`
 * Examples and demos are always available, also when not connected to internet
 * No support for clustering
 * Use of embedded H2 database server by default
@@ -194,10 +194,11 @@ Notes
 * Since 7.18.0.Final the two images Drools Workbench (+ showcase) and jBPM Workbench (+ showcase) were unified into
 one single image JBoss Business-Central Workbench (+ showcase). Drools Workbench and jBPM Workbench don't exist anymore in
 versions > 7.18.0.Final
+* WildFly was upgraded to version 23.0.2.Final
 
 Release notes
 --------------
 
-**7.58.0.Final**
+**7.59.0.Final**
 
-* See release notes for [JBoss Business-Central](http://docs.jboss.org/jbpm/release/7.58.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [JBoss Business-Central](http://docs.jboss.org/jbpm/release/7.59.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
