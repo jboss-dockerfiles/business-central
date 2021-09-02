@@ -12,7 +12,7 @@ if [ -n "$KIE_WB_PORT_8080_TCP" ] &&  [ -n "$KIE_WB_ENV_KIE_CONTEXT_PATH" ] &&  
     # If not public IP configured using the DOCKER_IP env, obtain the internal network address for this container.
     if [ ! -n "$DOCKER_IP" ]; then
     # Obtain current container's IP address.
-    DOCKER_IP=$(/sbin/ifconfig eth0 | grep 'inet' | cut -d: -f2 | awk '{ print $2}')
+    DOCKER_IP=$(/sbin/ifconfig eth0 | grep -Po 'inet \K[^ ]+')
     fi
     # If not public port configured using the DOCKER_PORT env, use the default internal network HTTP port.
     if [ ! -n "$DOCKER_PORT" ]; then
