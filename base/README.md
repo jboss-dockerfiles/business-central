@@ -22,7 +22,7 @@ Introduction
 The image contains:  
              
 * JBoss Wildfly 23.0.2.Final
-* JBoss Business-Central Workbench 7.59.0.Final
+* JBoss Business-Central Workbench 7.61.0.Final
 
 This image provides the JBoss Business-Central Workbench. It's intended to be extended so you can add your custom configurations.
 
@@ -217,7 +217,7 @@ Notes
 -----
 
 * The context path for JBoss Business-Central Workbench web application is `business-central`
-* JBoss Business-Central Workbench version is `7.59.0.Final`
+* JBoss Business-Central Workbench version is `7.61.0.Final`
 * No users or roles are configured by default               
 * No support for clustering                
 * Use of embedded H2 database server by default               
@@ -232,6 +232,6 @@ versions > 7.18.0.Final
 Release notes
 --------------
 
-**7.59.0.Final**
+**7.61.0.Final**
 
-* See release notes for [JBoss Business-Central](http://docs.jboss.org/jbpm/release/7.59.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [JBoss Business-Central](http://docs.jboss.org/jbpm/release/7.61.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)

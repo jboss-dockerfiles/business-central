@@ -1,8 +1,44 @@
 embed-server --server-config=standalone.xml
 
-if (outcome != success) of /subsystem=security/security-domain=other/authentication=classic/login-module=org.kie.security.jaas.KieLoginModule:read-resource
-    /subsystem=security/security-domain=other/authentication=classic/login-module=org.kie.security.jaas.KieLoginModule:add(code=org.kie.security.jaas.KieLoginModule, flag=required, module=deployment.business-central.war)
-end-if
+/subsystem=security:remove
+/core-service=management/security-realm=ApplicationRealm:remove
+
+/subsystem=elytron/filesystem-realm=KieRealm:add(path=kie-fs-realm-users, relative-to=jboss.server.config.dir)
+/subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=role)
+
+/subsystem=elytron/security-domain=ApplicationDomain:list-add(name=realms, index=0, value={realm=KieRealm, role-decoder=from-roles-attribute})
+/subsystem=elytron/security-domain=ApplicationDomain:write-attribute(name=default-realm, value=KieRealm)
+/subsystem=elytron/security-domain=ApplicationDomain:write-attribute(name=permission-mapper, value=default-permission-mapper)
+
+/subsystem=ee/service=default-bindings/:write-attribute(name="jms-connection-factory", value="java:jboss/DefaultJMSConnectionFactory")
+
+/subsystem=elytron/sasl-authentication-factory=application-sasl-authentication:remove
+/subsystem=elytron/sasl-authentication-factory=application-sasl-authentication:add(sasl-server-factory=configured,security-domain=ApplicationDomain,mechanism-configurations=[{mechanism-name=DIGEST-MD5,mechanism-realm-configurations=[{realm-name=KieRealm}]}])
+
+/subsystem=elytron/permission-set=security-domain-permission:add( permissions=[ { class-name=org.wildfly.security.permission.ElytronPermission, target-name=getSecurityDomain } ] )
+
+/subsystem=elytron/simple-permission-mapper=default-permission-mapper:list-add(name=permission-mappings[1].permission-sets,index=1,value={permission-set="security-domain-permission"})
+
+/subsystem=undertow/server=default-server/https-listener=https:remove
+/subsystem=undertow/server=default-server/https-listener=https:add( socket-binding=https, security-realm=KieRealm, enable-http2=true )
+/subsystem=undertow/application-security-domain=other:add(security-domain=ApplicationDomain)
+/subsystem=undertow/server=default-server/host=default-host/setting=http-invoker:remove
+/subsystem=undertow/server=default-server/host=default-host/setting=http-invoker:add(security-realm=KieRealm)
+
+/subsystem=elytron/http-authentication-factory=application-http-authentication:add(http-server-mechanism-factory=global,security-domain=ApplicationDomain,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=KieRealm}]}, {mechanism-name=FORM}])
+
+/subsystem=ejb3/service=remote:remove
+/subsystem=ejb3/application-security-domain=other:add(security-domain=ApplicationDomain)
+
+/core-service=management/security-realm=KieRealm:add()
+/core-service=management/security-realm=KieRealm/server-identity=ssl:add(keystore-relative-to=jboss.server.config.dir, keystore-password=password)
+
+/subsystem=remoting/http-connector=http-remoting-connector:remove
+/subsystem=remoting/http-connector=http-remoting-connector:add(connector-ref=default, security-realm=KieRealm)
+
+/subsystem=distributable-web:remove
+
+/subsystem=infinispan:remove
 
 if (outcome != success) of /system-property=org.kie.demo:read-resource
 	/system-property=org.kie.server.id:add(value="${org.kie.demo:true}")
