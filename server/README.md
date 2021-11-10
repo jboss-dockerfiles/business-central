@@ -1,7 +1,13 @@
 jBPM Workbench Showcase Docker image
 =====================================
 
-JBoss jBPM Server Full [Docker](http://docker.io/) image.
+KIE jBPM Server Full [Docker](http://docker.io/) image.
+From version 7.61.0.Final we changed the location for our docker images from [Docker](http://docker.io/) to [RedHat Quay](https://quay.io)
+
+The 7.61.0.Final version will have the images at both locations (Docker and Quay).
+
+From the versions > 7.61.0.Final on the images will only be available on Quay.
+
 
 Table of contents
 ------------------

@@ -1,9 +1,14 @@
-JBoss Business-Central Workbench Docker images
+KIE Business-Central Workbench Docker images
 ==============================================
 
-JBoss Business-Central Workbench [Docker](http://docker.io/) images.
+KIE Business-Central Workbench [Docker](http://docker.io/) image.
+From version 7.61.0.Final we changed the location for our docker images from [Docker](http://docker.io/) to [RedHat Quay](https://quay.io)
 
-This module provides the community JBoss Business-Central Workbench images.
+The 7.61.0.Final version will have the images at both locations (Docker and Quay).
+
+From the versions > 7.61.0.Final on the images will only be available on Quay.
+
+This module provides the community KIE Business-Central Workbench images.
 
 There are three available images:
 
@@ -13,8 +18,8 @@ It's the base Docker image for JBoss Business-Central Workbench. It's purpose is
  
 **business-central-workbench-showcase**
 
-It inherits from JBoss Business-Central Workbench image and provides a **ready to run Docker image for JBoss Business-Central Workbench**.
-It provides some custom configurations and default users and roles to try and test the workbench.
+It inherits from KIE Business-Central Workbench image and provides a **ready to run Quay image for KIE Business-Central Workbench**.
+It provides some custom configurations and default users and roles to try and test the workbench. 
 
 **jBPM Server Full distribution**
 
@@ -23,8 +28,5 @@ Deployed applications include: jBPM Workbench, Kie Server and jBPM Case Manageme
 For more information, please visit the [Getting Started Guide](http://jbpm.org/learn/gettingStarted.html)
 It provides some custom configurations and default users and roles to try and test the workbench.
 
-\* Since 7.18.0.Final the two images Drools Workbench (+ showcase) and jBPM Workbench (+ showcase) were unified into
-one single image JBoss Business-Central Workbench (+ showcase). Drools Workbench and jBPM Workbench don't exist anymore in
-versions > 7.18.0.Final.
 
 

@@ -1,9 +1,13 @@
-Drools KIE Server showcase Docker image
+KIE Server showcase Docker image
 =======================================
 
-Drools KIE Server showcase [Docker](http://docker.io/) image.
+KIE Server Showcase [Docker](http://docker.io/) image.
+From version 7.61.0.Final we changed the location for our docker images from [Docker](http://docker.io/) to [RedHat Quay](https://quay.io)<br>
+The 7.61.0.Final version will have the images at both locations (Docker and Quay).
 
-More information of KIE Server available at [JBoss documentation](http://docs.jboss.org/drools/release/7.61.0.Final/drools-docs/html_single/#_ch.kie.server).
+From the versions > 7.61.0.Final on the images will only be available on Quay.
+
+More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.58.0.Final/drools-docs/html_single/#_ch.kie.server).
 
 Table of contents
 ------------------
@@ -23,7 +27,7 @@ Introduction
 The image contains: 
               
 * JBoss Wildfly 23.0.2.Final
-* JBoss Drools KIE Server 7.61.0.Final
+* KIE Server 7.61.0.Final
 
 This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the Drools runtime execution server!                   
 
@@ -34,15 +38,15 @@ The JBoss KIE Execution server is intended to be used as a standalone runtime ex
 
 Once having a KIE Drools Workbench or a jBPM Workbench application container running, you can run several execution server instances linked with your workbench by running:                                 
     
-    # NOTE: Consider 'drools-wb' as the name of your Drools workbench running container.     
-    docker run -p 8180:8080 -d --name kie-server --link drools-wb:kie-wb jboss/kie-server-showcase:latest
+    # NOTE: Consider 'business-central-wb' as the name of your busines-central-showcase workbench running container.     
+    docker run -p 8180:8080 -d --name kie-server --link business-central-wb:kie-wb quay.io/kiegroup/kie-server-showcase:latest
 
-Note: Port `8080` is bind to port `8180` on the docker host considering that `drools-wb` container is already using it.         
+Note: Port `8080` is bind to port `8180` on the docker host considering that `business-central-wb` container is already using it.         
  
 As in the above example, the use of the link alias `kie-wb` produces:               
   
-* Use of your `drools-wb` container as the controller for the execution server.                     
-* The repository in the Maven settings, for consuming your artifacts from the `drools-wb` container, is automatically set.                    
+* Use of your `business-central-wb` container as the controller for the execution server.                     
+* The repository in the Maven settings, for consuming your artifacts from the `business-central-wb` container, is automatically set.                    
 
 So at the point the execution server container is up and running, this server instance will be automatically detected and available in your Drools/jBPM Workbench application, so you can deploy and run your application rules, etc into it.                 
 
@@ -86,7 +90,7 @@ Experimenting
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -p 8080:8080 jboss/kie-server-showcase:latest /bin/bash
+    docker run -t -i -p 8080:8080 quay.io/kiegroup/kie-server-showcase:latest /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 
@@ -94,7 +98,11 @@ Notes
 -----
 
 * The context path for Drools KIE Server application services is `kie-server`
+<<<<<<< Updated upstream
 * Drools KIE Server version is `7.61.0.Final`
+=======
+* KIE Server version is `7.61.0.Final`
+>>>>>>> Stashed changes
 * In order to perform container linking with a jBPM / Drools Workbench image, the link alias must be `kie-wb`       
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      

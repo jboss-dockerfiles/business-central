@@ -1,7 +1,12 @@
-JBoss Business-Central Workbench Docker image
+KIE Business-Central Workbench Docker image
 =============================================
 
-JBoss Business-Central Workbench [Docker](http://docker.io/) image.
+KIE Business-Central Workbench [Docker](http://docker.io/) image.
+From version 7.61.0.Final we changed the location for our docker images from [Docker](http://docker.io/) to [RedHat Quay](https://quay.io)
+
+The 7.61.0.Final version will have the images at both locations (Docker and Quay). 
+
+From the versions > 7.61.0.Final on the images will only be available on Quay.
 
 Table of contents
 ------------------
@@ -22,18 +27,18 @@ Introduction
 The image contains:  
              
 * JBoss Wildfly 23.0.2.Final
-* JBoss Business-Central Workbench 7.61.0.Final
+* KIE Business-Central Workbench 7.61.0.Final
 
-This image provides the JBoss Business-Central Workbench. It's intended to be extended so you can add your custom configurations.
+This image provides the KIE Business-Central Workbench. It's intended to be extended so you can add your custom configurations.
 
-If you don't want to extend this image and you just want to try business-central Workbench take a look at the `jboss/business-central-workbench-showcase:latest` Docker image, it contains some default configurations.
+If you don't want to extend this image and you just want to try business-central Workbench take a look at the `quay.io/kiegroup/kie-business-central-workbench:latest` Docker image, it contains some default configurations.
 
 Usage
 -----
 
 To run a container:
     
-    docker run -p 8080:8080 -p 8001:8001 -d --name business-central-workbench jboss/business-central-workbench:latest
+    docker run -p 8080:8080 -p 8001:8001 -d --name business-central-workbench quay.io/kiegroup/kie-business-central-workbench:latest
 
 Once container and web applications started, you can navigate into the business-central Workbench at:
 
@@ -46,7 +51,7 @@ The application have no users or roles configured, so you cannot not access it b
 
 In order to use it, at least you have to create an application user in JBoss Wildfly with role `admin`.                  
 
-If you are looking for a JBoss Business-Central Workbench image that does not require to add custom configurations, try our `jboss/business-central-workbench-showcase:latest` Docker image.
+If you are looking for a KIE Business-Central Workbench image that does not require to add custom configurations, try our `quay.io/kiegroup/kie-business-central-workbench:latest` Docker image.
 
 If you want to create your custom configuration and users, role, etc, you can take a look at section `Extending this image`                  
 
@@ -109,7 +114,7 @@ You can extend this image and add your custom layers in order to add custom conf
  
 In order to extend this image, your Dockerfile must inherit from:
 
-    FROM jboss/business-central-workbench:latest
+    FROM quay.io/kiegroup/kie-business-central-workbench:latest
     
 **Configuring Wildfly**
 
@@ -121,85 +126,52 @@ In order to extend this image, your Dockerfile must inherit from:
 
 * By default this image does not provide users and roles for JBoss Business-Central Workbench
 
-* The available roles for JBoss Business-Central Workbench examples are:
+* The available roles for KIE Business-Central Workbench examples are:
 
         ROLE        DESCRIPTION
         *************************************************
         admin       The administrator
         analyst     The analyst
-        developer   The developer
-        manager     The manager
-        user        The end user
         kiemgmt     KIE management user
+        rest-all    Rest API permissions
         Accounting  Accounting role
         PM          Project manager role
         HR          Human resources role
         sales       Sales role
         IT          IT role
 
-These are the steps to create your custom users and roles by using realm files in Widlfly:                  
+These are the steps to create custom users and roles by using realm files in Widlfly:                  
 
-1.- Create a realm properties file for users and deploy it in `/opt/jboss/wildfly/standalone/configuration`:                 
- 
-        business-central-users.properties
-        ---------------------
-        #admin=admin
-        admin=207b6e0cc556d7084b5e2db7d822555c
-        #analyst=analyst
-        analyst=047ca331957b5ce5021e8e01d3322a13
-        #developer=developer
-        developer=97df44a197a58de9674af3cd139df47e
-        #manager=manager
-        manager=e5148a68341fbc5afbe08fb4ab6da2c5        
-        #user=user
-        user=c5568adea472163dfc00c19c6348a665
+1.- copy the whole dir https://github.com/kiegroup/business-central/tree/7.61.0.Final/showcase/etc/kie-fs-realm-users to<br>
+$JBOSS_HOME/standalone/configuration/
 
-2.- Create a realm properties file for roles and deploy it in `/opt/jboss/wildfly/standalone/configuration`:                 
- 
-        business-central-roles.properties
-        ---------------------
-        admin=admin
-        analyst=analyst
-        developer=developer
-        manager=manager
-        user=user
+kie-fs-realm-users should be owned by user jboss (chown jboss:jboss -R $JBOSS_HOME/standalone/configuration/kie-fs-realm-users)
 
-3.- Modify your `standalone.xml` in order to:                
+2.- copy the file https://github.com/mbiarnes/business-central/blob/7.61.0.Final/showcase/etc/jbpm-custom.cli to<br>
+$JBOSS_HOME/bin/
+
+With this you have created the users
+
+        user        roles
+        ******************************************************
+        admin       admin, analyst, kiemgmt, rest-all
+        jack        analyst, HR
+        john        analys, Accounting, PM
+        katy        analyst, IT
+        krisv       admin, analyst
+        sales-rep   analyst, sales
         
-3.1 - In the `management` section, modify default the security-realm for the `ApplicationRealm` as:                   
 
-        <security-realm name="ApplicationRealm">
-              <authentication>
-                <local default-user="$local" allowed-users="*" skip-group-loading="true"/>
-                <properties path="business-central-users.properties" relative-to="jboss.server.config.dir"/>
-              </authentication>
-              <authorization>
-                <properties path="business-central-roles.properties" relative-to="jboss.server.config.dir"/>
-              </authorization>
-          </security-realm>
-          
-3.2 - In the `security` subsystem, modify default the `other` security-domain for as:                         
-
-        <security-domain name="other" cache-type="default">
-          <authentication>
-            <login-module code="Remoting" flag="optional">
-              <module-option name="password-stacking" value="useFirstPass"/>
-            </login-module>
-            <login-module code="RealmDirect" flag="required">
-              <module-option name="password-stacking" value="useFirstPass"/>
-            </login-module>
-            <login-module code="org.kie.security.jaas.KieLoginModule" flag="optional" module="deployment.business-central.war"/>
-          </authentication>
-        </security-domain>
-
-You can find an example by looking at the Dockerfile for `jboss/business-central-workbench-showcase:latest` image.
+3.- The `standalone.xml` file will be changed by `jbpm-custom.cli`               
+        
+You can find an example by looking at the Dockerfile for `quay.io/kiegroup/kie-business-central-workbench:latest` image.
 
 Experimenting
 -------------
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -p 8080:8080 -p 8001:8001 jboss/business-central-workbench:latest /bin/bash
+    docker run -t -i -p 8080:8080 -p 8001:8001 quay.io/kiegroup/kie-business-central-workbench:latest /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 
@@ -216,17 +188,14 @@ Try:
 Notes
 -----
 
-* The context path for JBoss Business-Central Workbench web application is `business-central`
-* JBoss Business-Central Workbench version is `7.61.0.Final`
+* The context path for KIE Business-Central Workbench web application is `business-central`
+* KIE Business-Central Workbench version is `7.61.0.Final`
 * No users or roles are configured by default               
 * No support for clustering                
 * Use of embedded H2 database server by default               
 * No support for Wildfly domain mode, just standalone mode                    
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
 * Please give us your feedback or report a issue at [Drools Setup](https://groups.google.com/forum/#!forum/drools-setup) or [Drools Usage](https://groups.google.com/forum/#!forum/drools-usage) Google groups.              
-* Since 7.18.0.Final the two images Drools Workbench (+ showcase) and jBPM Workbench (+ showcase) were unified into
-one single image JBoss Business-Central Workbench (+ showcase). Drools Workbench and jBPM Workbench don't exist anymore in
-versions > 7.18.0.Final
 * WildFly was upgraded to version 23.0.2.Final  
 
 Release notes
@@ -234,4 +203,4 @@ Release notes
 
 **7.61.0.Final**
 
-* See release notes for [JBoss Business-Central](http://docs.jboss.org/jbpm/release/7.61.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [KIE Business-Central](http://docs.jboss.org/jbpm/release/7.61.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
