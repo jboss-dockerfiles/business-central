@@ -12,8 +12,8 @@
 #
 
 CONTAINER_NAME="kie-server"
-IMAGE_NAME="jboss/kie-server"
-IMAGE_TAG="latest"
+IMAGE_NAME="kiegroup/kie-server"
+IMAGE_TAG="7.61.0.Final"
 
 
 function usage
