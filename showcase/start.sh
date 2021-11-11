@@ -54,6 +54,7 @@ echo $image_business_central > docker.pid
 # End
 echo ""
 echo "Server starting in $ip_business_central"
+# In windows the IP is correct, but the correct port can be seen for example from the docker UI container data.
 echo "You can access the server root context in http://$ip_business_central:8080"
 echo "JBoss Business-Central Workbench is running at http://$ip_business_central:8080/business-central"
 

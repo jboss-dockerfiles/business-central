@@ -1,9 +1,14 @@
-Drools KIE Server Docker image
+KIE Server Docker image
 ===============================
 
-Drools KIE Server [Docker](http://docker.io/) image.
+KIE Server [Docker](http://docker.io/) image.
+From version 7.61.0.Final we changed the location for our docker images from [Docker](http://docker.io/) to [RedHat Quay](https://quay.io)
 
-More information of KIE Server available at [JBoss documentation](https://docs.jboss.org/drools/release/7.59.0.Final/drools-docs/html_single/#_ch.kie.server).
+The 7.61.0.Final version will have the images at both locations (Docker and Quay).
+
+From the versions > 7.61.0.Final on the images will only be available on Quay.
+
+More information of KIE Server available at [KIE documentation](https://docs.jboss.org/drools/release/7.61.0.Final/drools-docs/html_single/#_ch.kie.server).
 
 Table of contents
 ------------------
@@ -23,21 +28,21 @@ Introduction
 The image contains:    
            
 * JBoss Wildfly 23.0.2.Final
-* JBoss Drools KIE Server 7.59.0.Final
+* KIE Server 7.61.0.Final
 
 This image provides the Drools KIE Server. It's intended to be extended so you can add your custom configurations.                 
 
-If you don't want to extend this image and you just want to try Drools KIE Server take a look at the `jboss/kie-server-showcase:latest` Docker image, it contains some default configurations.                   
+If you don't want to extend this image and you just want to try Drools KIE Server take a look at the `quay.io/kiegroup/kie-server:latest` Docker image, it contains some default configurations.                   
 
 Usage
 -----
 
 The JBoss KIE Execution server is intended to be used as a standalone runtime execution environment managed by a KIE Drools Workbench or a jBPM Workbench application that acts as a controller.              
-This image does not provides any default configuration, so please to use the execution server it's recommended to read the documentation at [Installing the KIE Server](https://docs.jboss.org/drools/release/7.59.0.Final/drools-docs/html_single/#_installing_the_kie_server). You can check an example of this configuration at the [KIE Server Showcase](https://registry.hub.docker.com/u/jboss/kie-server-showcase/) Docker image too.
+This image does not provides any default configuration, so please to use the execution server it's recommended to read the documentation at [Installing the KIE Server](https://docs.jboss.org/drools/release/7.61.0.Final/drools-docs/html_single/#_installing_the_kie_server). You can check an example of this configuration at the [KIE Server Showcase](https://registry.hub.docker.com/u/jboss/kie-server-showcase/) Docker image too.
 
 To run a container:
     
-    docker run -p 8080:8080 -d --name kie-server jboss/kie-server:latest
+    docker run -p 8080:8080 -d --name kie-server quay.io/kiegroup/kie-server:latest
 
 Once container and web applications started, the application is available at:              
 
@@ -55,7 +60,7 @@ The application have no users or roles configured, so you cannot not access it b
 
 In order to use it, at least you have to create an application user in JBoss Wildfly with role `kie-server`.                  
 
-If you are looking for a Drools KIE Server image that does not require to add custom configurations, try our `jboss/kie-server-showcase:latest` Docker image.
+If you are looking for a KIE Server image that does not require to add custom configurations, try our `quay.io/kiegroup/kie-server-showcase:latest` Docker image.
 
 If you want to create your custom configuration and users, role, etc, you can take a look at section `Extending this image`.    
 
@@ -139,22 +144,22 @@ These are the steps to create your custom users and roles by using realm files i
           </authentication>
         </security-domain>
 
-You can find an example by looking at the Dockerfile for `jboss/kie-server-showcase:latest` image.
+You can find an example by looking at the Dockerfile for `quay.io/kiegroup/kie-server-showcase:latest image.
 
 Experimenting
 -------------
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -P 8080:8080 jboss/kie-server:latest /bin/bash
+    docker run -t -i -P 8080:8080 quay.io/kiegroup/kie-server:latest /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 
 Notes
 -----
 
-* The context path for Drools KIE Server application services is `kie-server`
-* Drools KIE Server version is `7.59.0.Final`
+* The context path for KIE Server application services is `kie-server`
+* Drools KIE Server version is `7.61.0.Final`
 * No users or roles are configured by default               
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
@@ -164,7 +169,7 @@ Notes
 Release notes
 --------------
 
-**7.59.0.Final**
+**7.61.0.Final**
 
-* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.59.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
+* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.61.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
 
