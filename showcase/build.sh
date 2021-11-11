@@ -4,8 +4,8 @@
 # JBoss Business-Central Workbench Showcase - Docker image build script
 # *********************************************************************
 
-IMAGE_NAME="jboss/business-central-workbench-showcase"
-IMAGE_TAG="latest"
+IMAGE_NAME="kiegroup/kie-business-central-workbench-showcase"
+IMAGE_TAG="7.61.0.Final"
 
 
 # Build the container image.

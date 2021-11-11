@@ -4,8 +4,8 @@
 # KIE Server - Docker image build script
 # ********************************************
 
-IMAGE_NAME="jboss/kie-server"
-IMAGE_TAG="latest"
+IMAGE_NAME="kiegroup/kie-server"
+IMAGE_TAG="7.61.0.Final"
 
 
 # Build the container image.
