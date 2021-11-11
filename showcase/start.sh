@@ -12,7 +12,7 @@
 #
 
 CONTAINER_NAME="business-central-workbench-showcase"
-IMAGE_NAME="kiegroup/kie-business-central-workbench-showcase"
+IMAGE_NAME="kiegroup/business-central-workbench-showcase"
 IMAGE_TAG="7.61.0.Final"
 
 

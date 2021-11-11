@@ -4,7 +4,7 @@
 # jBPM Server Full - Docker image build script
 # ***************************************************
 
-IMAGE_NAME="kiegroup/kie-jbpm-server-full"
+IMAGE_NAME="kiegroup/jbpm-server-full"
 IMAGE_TAG="7.61.0.Final"
 
 
