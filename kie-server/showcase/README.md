@@ -1,13 +1,13 @@
 KIE Server showcase Docker image
 =======================================
 
-KIE Server Showcase [Docker](http://docker.io/) image.
-From version 7.61.0.Final we changed the location for our docker images from [Docker](http://docker.io/) to [RedHat Quay](https://quay.io)<br>
+From version 7.61.0.Final we changed the location for our docker images from Docker to [RedHat Quay](https://quay.io/repository/kiegroup/kie-server-showcase)
+
 The 7.61.0.Final version will have the images at both locations (Docker and Quay).
 
 From the versions > 7.61.0.Final on the images will only be available on Quay.
 
-More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.58.0.Final/drools-docs/html_single/#_ch.kie.server).
+More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.61.0.Final/drools-docs/html_single/#_ch.kie.server).
 
 Table of contents
 ------------------
@@ -98,11 +98,7 @@ Notes
 -----
 
 * The context path for Drools KIE Server application services is `kie-server`
-<<<<<<< Updated upstream
-* Drools KIE Server version is `7.61.0.Final`
-=======
 * KIE Server version is `7.61.0.Final`
->>>>>>> Stashed changes
 * In order to perform container linking with a jBPM / Drools Workbench image, the link alias must be `kie-wb`       
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
