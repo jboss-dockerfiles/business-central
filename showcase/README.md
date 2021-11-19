@@ -1,8 +1,7 @@
-KIE Business-Central Showcase Docker image
+Business-Central Showcase Docker image
 ============================================
 
-KIE Business-Central Workbench Showcase [Docker](http://docker.io/) image.
-From version 7.61.0.Final we changed the location for our docker images from [Docker](http://docker.io/) to [RedHat Quay](https://quay.io)
+From version 7.61.0.Final we changed the location for our docker images from Docker to [RedHat Quay](https://quay.io/repository/kiegroup/business-central-workbench-showcase)
 
 The 7.61.0.Final version will have the images at both locations (Docker and Quay).
 
@@ -30,7 +29,7 @@ The image contains:
 * JBoss Wildfly 23.0.2.Final
 * KIE Business-Central Workbench 7.61.0.Final
 
-This image inherits from `quay.io/kiegroup/kie-business-central-workbench:latest` and provides some additional configurations:
+This image inherits from `quay.io/kiegroup/business-central-workbench:latest` and provides some additional configurations:
 
 * Default users and roles
 * Some examples
@@ -42,7 +41,7 @@ Usage
 
 To run a container:
     
-    docker run -p 8080:8080 -p 8001:8001 -d --name jbpm-workbench quay.io/kiegroup/kie-business-central-workbench-showcase:latest
+    docker run -p 8080:8080 -p 8001:8001 -d --name jbpm-workbench quay.io/kiegroup/business-central-workbench-showcase:latest
 
 Once container and web applications started, you can navigate to it using one of the users described in section `Users and roles`, using the following URL:
 
@@ -157,14 +156,14 @@ Considering this showcase module as the base for this example, follow the next s
     
 3.- Create your Docker image:
 
-    docker build --rm -t quay.io/kiegroup/kie-business-central-workbench-showcase:MY_TAG
+    docker build --rm -t quay.io/kiegroup/business-central-workbench-showcase:MY_TAG
 
 At this point, the default GIT root directory for the workbench will be located inside the Docker container at `/opt/jboss/wildfly/mygit/`. So all your assets will be stored in the underlying git structure on this path.
 
 In order to keep the git repositories between different containers you can just start the container by configuring a new host volume as:
 
     # Use -v <SOURCE_FS_PATH>:<CONTAINER_FS_PATH>
-    docker run -p 8080:8080 -p 8001:8001 -v /home/myuser/wb_git:/opt/jboss/wildfly/mygit:Z -d --name business-central-workbench quay.io/kiegroup/kie-business-central-workbench-showcase:MY_TAG
+    docker run -p 8080:8080 -p 8001:8001 -v /home/myuser/wb_git:/opt/jboss/wildfly/mygit:Z -d --name business-central-workbench quay.io/kiegroup/business-central-workbench-showcase:MY_TAG
     
 As the above command, now your workbench git repository will be persistent at your local filesystem path `/home/myuser/wb_git`. So if you remove this container and start a new one just by using same shared volume, you'll find all your assets on the new workbench's container as well.
     
@@ -173,7 +172,7 @@ Experimenting
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -p 8080:8080 -p 8001:8001 quay.io/kiegroup/kie-business-central-workbench-showcase:latest /bin/bash
+    docker run -t -i -p 8080:8080 -p 8001:8001 quay.io/kiegroup/business-central-workbench-showcase:latest /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 
@@ -203,4 +202,4 @@ Release notes
 
 **7.61.0.Final**
 
-* See release notes for [KIE Business-Central](http://docs.jboss.org/jbpm/release/7.61.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [Business-Central](http://docs.jboss.org/jbpm/release/7.61.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)

@@ -1,8 +1,7 @@
-KIE Business-Central Workbench Docker image
+Business-Central Workbench Docker image
 =============================================
 
-KIE Business-Central Workbench [Docker](http://docker.io/) image.
-From version 7.61.0.Final we changed the location for our docker images from [Docker](http://docker.io/) to [RedHat Quay](https://quay.io)
+From version 7.61.0.Final we changed the location for our docker images from Docker to [RedHat Quay](https://quay.io/repository/kiegroup/business-central-workbench)
 
 The 7.61.0.Final version will have the images at both locations (Docker and Quay). 
 
@@ -31,14 +30,14 @@ The image contains:
 
 This image provides the KIE Business-Central Workbench. It's intended to be extended so you can add your custom configurations.
 
-If you don't want to extend this image and you just want to try business-central Workbench take a look at the `quay.io/kiegroup/kie-business-central-workbench:latest` Docker image, it contains some default configurations.
+If you don't want to extend this image and you just want to try business-central Workbench take a look at the `quay.io/kiegroup/business-central-workbench:latest` Docker image, it contains some default configurations.
 
 Usage
 -----
 
 To run a container:
     
-    docker run -p 8080:8080 -p 8001:8001 -d --name business-central-workbench quay.io/kiegroup/kie-business-central-workbench:latest
+    docker run -p 8080:8080 -p 8001:8001 -d --name business-central-workbench quay.io/kiegroup/business-central-workbench:latest
 
 Once container and web applications started, you can navigate into the business-central Workbench at:
 
@@ -51,7 +50,7 @@ The application have no users or roles configured, so you cannot not access it b
 
 In order to use it, at least you have to create an application user in JBoss Wildfly with role `admin`.                  
 
-If you are looking for a KIE Business-Central Workbench image that does not require to add custom configurations, try our `quay.io/kiegroup/kie-business-central-workbench:latest` Docker image.
+If you are looking for a KIE Business-Central Workbench image that does not require to add custom configurations, try our `quay.io/kiegroup/business-central-workbench:latest` Docker image.
 
 If you want to create your custom configuration and users, role, etc, you can take a look at section `Extending this image`                  
 
@@ -114,7 +113,7 @@ You can extend this image and add your custom layers in order to add custom conf
  
 In order to extend this image, your Dockerfile must inherit from:
 
-    FROM quay.io/kiegroup/kie-business-central-workbench:latest
+    FROM quay.io/kiegroup/business-central-workbench:latest
     
 **Configuring Wildfly**
 
@@ -164,14 +163,14 @@ With this you have created the users
 
 3.- The `standalone.xml` file will be changed by `jbpm-custom.cli`               
         
-You can find an example by looking at the Dockerfile for `quay.io/kiegroup/kie-business-central-workbench:latest` image.
+You can find an example by looking at the Dockerfile for `quay.io/kiegroup/business-central-workbench:latest` image.
 
 Experimenting
 -------------
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -p 8080:8080 -p 8001:8001 quay.io/kiegroup/kie-business-central-workbench:latest /bin/bash
+    docker run -t -i -p 8080:8080 -p 8001:8001 quay.io/kiegroup/business-central-workbench:latest /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 
@@ -203,4 +202,4 @@ Release notes
 
 **7.61.0.Final**
 
-* See release notes for [KIE Business-Central](http://docs.jboss.org/jbpm/release/7.61.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [Business-Central](http://docs.jboss.org/jbpm/release/7.61.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
