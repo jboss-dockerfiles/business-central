@@ -1,9 +1,7 @@
 jBPM Workbench Showcase Docker image
 =====================================
 
-From version 7.61.0.Final we changed the location for our docker images from Docker to [RedHat Quay](https://quay.io/repository/kiegroup/jbpm-server-full)
-
-The 7.61.0.Final version will have the images at both locations (Docker and Quay).
+We changed the location for our docker images from Docker to [RedHat Quay](https://quay.io/repository/kiegroup/jbpm-server-full)
 
 From the versions > 7.61.0.Final on the images will only be available on Quay.
 
@@ -30,9 +28,9 @@ Introduction
 The image contains:
 
 * JBoss Wildfly 23.0.2.Final
-* jBPM Workbench 7.61.0.Final
-* KIE Server 7.61.0.Final
-* jBPM Case Management Showcase 7.61.0.Final
+* jBPM Workbench 7.62.0.Final
+* KIE Server 7.62.0.Final
+* jBPM Case Management Showcase 7.62.0.Final
 
 This is a **ready to run Docker image for jBPM Workbench**. Just run it and try the jBPM Workbench!
 
@@ -184,11 +182,11 @@ Try:
 Notes
 -----
 
-* jBPM Workbench version is `7.61.0.Final`
+* jBPM Workbench version is `7.62.0.Final`
 * The context path for jBPM Workbench web application is `business-central`
-* KIE Server version is `7.61.0.Final`
+* KIE Server version is `7.62.0.Final`
 * The context path for KIE Server web application is `kie-server`
-* jBPM Case Management Showcase version is `7.61.0.Final`
+* jBPM Case Management Showcase version is `7.62.0.Final`
 * The context path for jBPM Case Management Showcase web application is `jbpm-casemgmt`
 * Examples and demos are always available, also when not connected to internet
 * No support for clustering
@@ -201,6 +199,6 @@ Notes
 Release notes
 --------------
 
-**7.61.0.Final**
+**7.62.0.Final**
 
-* See release notes for [jBPM](http://docs.jboss.org/jbpm/release/7.61.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [jBPM](http://docs.jboss.org/jbpm/release/7.62.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
