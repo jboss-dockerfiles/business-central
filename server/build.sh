@@ -5,7 +5,7 @@
 # ***************************************************
 
 IMAGE_NAME="kiegroup/jbpm-server-full"
-IMAGE_TAG="7.61.0.Final"
+IMAGE_TAG="7.62.0.Final"
 
 
 # Build the container image.
