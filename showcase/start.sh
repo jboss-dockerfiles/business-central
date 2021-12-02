@@ -40,22 +40,36 @@ if [ -f docker.pid ]; then
     echo "Container already started"
     container_id=$(cat docker.pid)
     echo "Stopping container $container_id..."
-    docker stop $container_id
+    # In case you want to use Docker please use `docker` instead of `podman`
+    podman stop $container_id
     rm -f docker.pid
 fi
 
 # Start the JBoss jBPM Workbench docker container
 echo "Starting $CONTAINER_NAME docker container using:"
 echo "** Container name: $CONTAINER_NAME"
-image_business_central=$(docker run -P -d --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG)
-ip_business_central=$(docker inspect $image_business_central | grep -m 1 \"IPAddress\" | awk '{print $2}' | tr -d '",')
+image_business_central=$(podman run -P -d --network=host --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG)
 echo $image_business_central > docker.pid
 
 # End
 echo ""
-echo "Server starting in $ip_business_central"
+echo "Server starting ..."
 # In windows the IP is correct, but the correct port can be seen for example from the docker UI container data.
-echo "You can access the server root context in http://$ip_business_central:8080"
-echo "JBoss Business-Central Workbench is running at http://$ip_business_central:8080/business-central"
+echo "You can access the server root context in http://localhost:8080"
+echo "JBoss Business-Central Workbench is running at http://localhost:8080/business-central"
+
+# In case you want use Docker instead of Podman please use:
+# Start the JBoss jBPM Workbench docker container
+#echo "Starting $CONTAINER_NAME docker container using:"
+#echo "** Container name: $CONTAINER_NAME"
+#image_business_central=$(docker run -P -d --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG)
+#ip_business_central=$(docker inspect $image_business_central | grep -m 1 \"IPAddress\" | awk '{print $2}' | tr -d '",')
+#echo $image_business_central > docker.pid
+#
+## End
+#echo ""
+#echo "Server starting in $ip_business_central"
+#echo "You can access the server root context in http://$ip_business_central:8080"
+#echo "JBoss Business-Central Workbench is running at http://$ip_business_central:8080/business-central"
 
 exit 0
