@@ -162,6 +162,7 @@ Notes
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
 * Please give us your feedback or report a issue at [Drools Setup](https://groups.google.com/forum/#!forum/drools-setup) or [Drools Usage](https://groups.google.com/forum/#!forum/drools-usage) Google groups.              
 * WildFly was upgraded to version 23.0.2.Final
+* compatibility with podman version 3.4.2
 
 Release notes
 --------------

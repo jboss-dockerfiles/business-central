@@ -1,6 +1,6 @@
-#########################################################################
-# Dockerfile that provides the image for JBoss Business-Central Workbench
-#########################################################################
+############################################################################
+# Dockerfile that provides the image for Business-Central Workbench Showcase
+############################################################################
 
 ####### BASE ############
 FROM kiegroup/business-central-workbench:7.62.0.Final
