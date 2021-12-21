@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="business-central-workbench-showcase"
 IMAGE_NAME="kiegroup/business-central-workbench-showcase"
-IMAGE_TAG="latest"
+IMAGE_TAG="7.63.0.Final"
 
 
 function usage

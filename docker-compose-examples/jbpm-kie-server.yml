@@ -2,12 +2,12 @@ version: '2'
 
 services:
   business-central:
-    image: jboss/business-central-workbench-showcase
+    image: localhost/jboss/business-central-workbench-showcase
     ports:
     - 8080:8080
     - 8001:8001
   kie-server:
-    image: jboss/kie-server-showcase
+    image: localhost/jboss/kie-server-showcase
     environment:
       KIE_SERVER_LOCATION: http://kie-server:8080/kie-server/services/rest/server
       KIE_SERVER_CONTROLLER: http://business-central:8080/business-central/rest/controller

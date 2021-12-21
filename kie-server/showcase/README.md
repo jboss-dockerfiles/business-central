@@ -5,7 +5,7 @@ We changed the location for our docker images from Docker to [RedHat Quay](https
 
 From the versions > 7.61.0.Final on the images will only be available on Quay.
 
-More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.62.0.Final/drools-docs/html_single/#_ch.kie.server).
+More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.63.0.Final/drools-docs/html_single/#_ch.kie.server).
 
 Table of contents
 ------------------
@@ -25,38 +25,27 @@ Introduction
 The image contains: 
               
 * JBoss Wildfly 23.0.2.Final
-* KIE Server 7.62.0.Final
+* KIE Server 7.63.0.Final
 
-This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the Drools runtime execution server!                   
+This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the business-central runtime execution server!                   
 
 Usage
 -----
+Since `--link` is legacy we had to change the previous command by a simple docker-compose file.
 
-The JBoss KIE Execution server is intended to be used as a standalone runtime execution environment managed by a KIE Drools Workbench or a jBPM Workbench application that acts as a controller.             
+The JBoss KIE Execution server is intended to be used as a standalone runtime execution environment managed by a Business-Central Workbench application that acts as a controller.             
 
-Once having a KIE Drools Workbench or a jBPM Workbench application container running, you can run several execution server instances linked with your workbench by running:                                 
-    
-    # NOTE: Consider 'business-central-wb' as the name of your busines-central-showcase workbench running container.     
-    docker run -p 8180:8080 -d --name kie-server --link business-central-wb:kie-wb quay.io/kiegroup/kie-server-showcase:latest
-
-Note: Port `8080` is bind to port `8180` on the docker host considering that `business-central-wb` container is already using it.         
- 
-As in the above example, the use of the link alias `kie-wb` produces:               
-  
-* Use of your `business-central-wb` container as the controller for the execution server.                     
-* The repository in the Maven settings, for consuming your artifacts from the `business-central-wb` container, is automatically set.                    
-
-So at the point the execution server container is up and running, this server instance will be automatically detected and available in your Drools/jBPM Workbench application, so you can deploy and run your application rules, etc into it.                 
-
-For more information, please read the documentation at [Installing the KIE Server](http://docs.jboss.org/drools/release/7.62.0.Final/drools-docs/html_single/#_installing_the_kie_server).
+For running the container of Business-Central Workbench application as kie-server remote controller please run:                                 
+    podman-compose -f bc-kie-server.yml up
+* where bc-kie-server.yml is [bc-kie-server.yml](https://github.com/jboss-dockerfiles/business-central/blob/main/docker-compose-examples/bc-kie-server.yml)
 
 Once container and web applications started, the application is available at:              
 
-    http://localhost:8180/kie-server
+    http://localhost:8081/kie-server
 
 The **REST API service** is located at:               
 
-    http://localhost:8180/kie-server/services/rest/server/
+    http://localhost:8088/kie-server/services/rest/server/
 
 Users and roles
 ----------------
@@ -96,7 +85,7 @@ Notes
 -----
 
 * The context path for Drools KIE Server application services is `kie-server`
-* KIE Server version is `7.62.0.Final`
+* KIE Server version is `7.63.0.Final`
 * In order to perform container linking with a jBPM / Drools Workbench image, the link alias must be `kie-wb`       
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
@@ -107,6 +96,6 @@ Notes
 Release notes
 -------------
 
-**7.62.0.Final**
+**7.63.0.Final**
 
-* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.62.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
+* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.63.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
