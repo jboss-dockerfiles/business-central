@@ -3,7 +3,7 @@
 #########################################################
 
 ####### BASE ############
-FROM kiegroup/kie-server:7.62.0.Final
+FROM kiegroup/kie-server:7.63.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -13,8 +13,6 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ENV KIE_SERVER_LOCATION http://localhost:8080/kie-server/services/rest/server
 ENV KIE_SERVER_USER kieserver
 ENV KIE_SERVER_PWD kieserver1!
-# When using this image against jboss/jbpm-workbench-showcase use /jbpm-console/rest/controller
-# ENV KIE_SERVER_CONTROLLER http://localhost:8080/kie-wb/rest/controller
 ENV KIE_SERVER_CONTROLLER_USER admin
 ENV KIE_SERVER_CONTROLLER_PWD admin
 ENV KIE_MAVEN_REPO http://localhost:8080/kie-wb/maven2

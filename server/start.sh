@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="jbpm-server-full"
 IMAGE_NAME="kiegroup/jbpm-server-full"
-IMAGE_TAG="latest"
+IMAGE_TAG="7.63.0.Final"
 
 
 function usage
