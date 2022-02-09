@@ -5,17 +5,13 @@ services:
     ports:
       - "8083:8080"
       - "8003:8001"
-    # networks:
-    #   - bcn
     environment:
-      KIE_SERVER_LOCATION：http://kieserver:8090/kie-server/services/rest/server"
+      KIE_SERVER_LOCATION: http://kieserver:8090/kie-server/services/rest/server
 
   kieserver:
     image: quay.io/kiegroup/kie-server-showcase:latest
     ports:
       - "8088:8080"
-    # networks:
-    #   - bcn
     environment:
       KIE_SERVER_LOCATION: http://kieserver:8080/kie-server/services/rest/server
       KIE_SERVER_CONTROLLER: http://showcase:8080/business-central/rest/controller
