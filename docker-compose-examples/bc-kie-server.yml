@@ -1,22 +1,21 @@
 version: '3'
 services:
-  showcase:
-    image: quay.io/kiegroup/business-central-workbench-showcase:latest
+  business-central:
+    image: localhost/kiegroup/business-central-workbench-showcase:7.65.0.Final
     ports:
-      - "8083:8080"
-      - "8003:8001"
-    # networks:
-    #   - bcn
+      - "8080:8080"
+      - "8001:8001"
     environment:
-      KIE_SERVER_LOCATION：http://kieserver:8090/kie-server/services/rest/server"
+      KIE_SERVER_LOCATION: http://kie-server:8080/kie-server/services/rest/server
 
-  kieserver:
-    image: quay.io/kiegroup/kie-server-showcase:latest
-    ports:
-      - "8088:8080"
-    # networks:
-    #   - bcn
+  kie-server:
+    image: localhost/kiegroup/kie-server-showcase:7.65.0.Final
     environment:
-      KIE_SERVER_LOCATION: http://kieserver:8080/kie-server/services/rest/server
-      KIE_SERVER_CONTROLLER: http://showcase:8080/business-central/rest/controller
-      KIE_MAVEN_REPO: http://showcase:8080/business-central/maven2
+      KIE_SERVER_ID: sample-server
+      KIE_SERVER_LOCATION: http://kie-server:8080/kie-server/services/rest/server
+      KIE_SERVER_CONTROLLER: http://business-central:8080/business-central/rest/controller
+      KIE_MAVEN_REPO: http://business-central:8080/business-central/maven2
+    ports:
+      - "8180:8080"
+    depends_on:
+      - business-central
