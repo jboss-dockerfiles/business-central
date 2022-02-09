@@ -45,7 +45,7 @@ Once container and web applications started, the application is available at:
 
 The **REST API service** is located at:               
 
-    http://localhost:8088/kie-server/services/rest/server/
+    http://localhost:8081/kie-server/services/rest/server/
 
 Users and roles
 ----------------
