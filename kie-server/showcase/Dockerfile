@@ -3,7 +3,7 @@
 #########################################################
 
 ####### BASE ############
-FROM kiegroup/kie-server:7.64.0.Final
+FROM kiegroup/kie-server:7.65.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
