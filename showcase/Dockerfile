@@ -3,7 +3,7 @@
 ############################################################################
 
 ####### BASE ############
-FROM kiegroup/business-central-workbench:7.65.0.Final
+FROM kiegroup/business-central-workbench:7.66.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
