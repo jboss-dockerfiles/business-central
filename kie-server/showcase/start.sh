@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="kie-server-showcase"
 IMAGE_NAME="kiegroup/kie-server-showcase"
-IMAGE_TAG="7.65.0.Final"
+IMAGE_TAG="7.66.0.Final"
 
 
 function usage
