@@ -1,0 +1,292 @@
+@Library('jenkins-pipeline-shared-libraries')_
+import org.jenkinsci.plugins.workflow.libs.Library
+
+AGENT_LABEL="kie-rhel8 && !master"
+mvnTool="${env.MVN_TOOL}"
+jdkTool="${env.JAVA_TOOL}"
+N_K_F_V="${env.NEW_KIE_FINAL_VERSION}"
+C_K_F_V="${env.CURRENT_KIE_FINAL_VERSION}"
+podmanImagesRepo="business-central"
+GIT_AUTHOR="${env.GH_ORG_UNIT}"
+TARGET_BRANCH="${env.BASE_BRANCH}"
+KIECREDS="${env.KIECREDS}"
+COMMIT_MSG="bumped up kie-version to ${N_K_F_V}"
+PR_BRANCH="bump_up_version_to_${N_K_F_V}"
+PR_BODY="Please review and merge"
+
+pipeline {
+    agent {
+        label "$AGENT_LABEL"
+    }
+    options{
+        timestamps()
+    }
+    tools {
+        maven "$mvnTool"
+        jdk "$jdkTool"
+    }
+    stages {
+        stage('CleanWorkspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('clone business-central') {
+            steps {
+                script {
+                    checkoutPodmanImagesRepo()
+                }
+            }
+        }
+        stage('create branch for PR'){
+            steps{
+                dir("${WORKSPACE}/${podmanImagesRepo}"){
+                    script{
+                        githubscm.createBranch(PR_BRANCH)
+                    }
+                }
+            }
+        }
+        stage('upgrade versions') {
+            steps {
+                dir("${WORKSPACE}/${podmanImagesRepo}") {
+                    script {
+                        sh "./script/update-version.sh ${C_K_F_V} ${N_K_F_V}"
+                    }
+                }
+            }
+        }
+        stage('add and commit kie-version'){
+            steps{
+                dir("${WORKSPACE}/${podmanImagesRepo}"){
+                    script{
+                        githubscm.commitChanges(COMMIT_MSG)
+                    }
+                }
+            }
+        }
+        stage('cleanup all containers and images') {
+            steps {
+                script {
+                    cloud.cleanContainersAndImages()
+                }
+            }
+        }
+        stage('build podman images') {
+            steps {
+                script {
+                    def bcFolders=['base', 'showcase', 'kie-server/base', 'kie-server/showcase', 'server']
+                    bcFolders.each{ folder ->
+                        dir("${WORKSPACE}/${podmanImagesRepo}/${folder}") {
+                            script{
+                                sh './build.sh'
+                            }
+                        }
+                    }
+                    sh "podman images"
+                }
+            }
+        }
+        stage ('download correct driver for tests') {
+            steps {
+                dir("${WORKSPACE}/${podmanImagesRepo}/seleniumTests") {
+                    sh """
+                    mkdir driver
+                    cd driver
+                    wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+                    tar -xf geckodriver-v0.31.0-linux64.tar.gz
+                    export PATH="${WORKSPACE}/${podmanImagesRepo}/seleniumTests/driver:$PATH}"
+                    echo $PATH
+                    """
+                }
+            }
+        }
+        stage ('podman images tests'){
+            steps {
+                dir("${WORKSPACE}/${podmanImagesRepo}/seleniumTests") {
+                    wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+                        script{
+                            def images=[
+                                    [id: "kiegroup/kie-server", class: "KieServerTest" ] ,
+                                    [id: "kiegroup/kie-server-showcase", class: "KieServerShowcaseTest" ] ,
+                                    [id: "kiegroup/business-central-workbench", class: "BcWorkbenchTest" ],
+                                    [id: "kiegroup/business-central-workbench-showcase", class: "BcWorkbenchShowcaseTest" ],
+                                    [id: "kiegroup/jbpm-server-full", class: "JbpmServerTest" ],
+                                    [id: "bc-kie-server-example", class: "BcKieServerTest" ]
+                            ]
+                            def failurePodmanImages = []
+                            images.each{image ->
+                                script{
+                                    pwd
+                                    echo "run podman image ${image.id}"
+                                    if ( "${image.id}" == "bc-kie-server-example" ) {
+                                       def ip_add = sh (script: "hostname -I | awk '{print \$1}'", returnStdout:true).trim()
+                                       print "IP Address: ${ip_add}"
+                                       sh """sed -i "s/IP-ADDRESS/${ip_add}/g" src/test/resources/kie-server.properties"""
+                                       sh "cat src/test/resources/kie-server.properties"
+                                       sh "podman run -p 8080:8080 -p 8001:8001 -d --name=bc_showcase kiegroup/business-central-workbench-showcase:${N_K_F_V}"
+                                       sleep(time:60,unit:"SECONDS")
+                                       sh "podman run -p 8180:8080 -p 8007:8001 -d --name=kie_server --env-file=src/test/resources/kie-server.properties kiegroup/kie-server-showcase:${N_K_F_V}"
+                                       sleep(time:30,unit:"SECONDS")
+                                    } else {
+                                        def podmanID = sh(script: "podman run -p 8080:8080 -p 8001:8001 -d ${image.id}:${N_K_F_V}", returnStdout:true)
+                                        print "podmanID: ${podmanID}"
+                                        def podmanRuns = sh(script: "podman inspect -f '{{.State.Running}}' ${podmanID}", returnStdout: true).toBoolean()
+                                        print "podmanRuns: ${podmanRuns}"
+                                        if ( podmanRuns ){
+                                            print "Container ${image.id} is running"
+                                        } else {
+                                            print "Container ${image.id} is NOT running"
+                                        }
+                                    }
+                                    sleep(time:90,unit:"SECONDS")
+                                    try {
+                                        println "Executing tests for ${image.id} for ${image.class}"
+                                        def imageTestFile = "${env.WORKSPACE}/${podmanImagesRepo}/seleniumTests/src/test/java/com/practice/${image.class}.java"
+                                        if(!fileExists(imageTestFile)) {
+                                          throw new RuntimeException("The file ${imageTestFile} does not exist")
+                                        }
+                                        def mvnArg = "-Dtest=${image.class} -Dmaven.test.failure.ignore=true"
+                                        sh "mvn -fae clean install ${mvnArg}"
+                                        print "Test was successfully executed"
+                                    }
+                                    catch(e) {
+                                        print "Error executing ${image.id}"
+                                        echo e.toString()
+                                        failurePodmanImages.add("${image.id}")
+                                    }
+                                    if ( "${image.id}" == "bc-kie-server-example" ) {
+                                         sh "podman logs bc_showcase >> eap_bc-showcase.log"
+                                         sh "podman logs kie_server >> eap_kie-server.log"
+                                         echo "stop and rm running podman containers"
+                                         sh 'podman stop $(podman ps -aq)'
+                                         sh 'podman rm $(podman ps -aq)'
+                                         sh 'podman ps -a'
+                                    } else {
+                                        echo "stop running container ${image.id}"
+                                        sh 'podman stop $(podman ps -lq)'
+                                        echo "remove container ${image.id}"
+                                        sh 'podman rm $(podman ps -lq)'
+                                        sh 'podman ps -a'
+                                    }
+                                }
+                            }
+                            echo "check errors"
+                            if(failurePodmanImages.size() > 0) {
+                              errorMessage = "[ERROR] These images ${failurePodmanImages} are in error state. Please check the logs";
+                              print errorMessage;
+                              throw new RuntimeException(errorMessage)
+                            } else {
+                              print "[INFO] All the images are OK"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        stage('Publish JUnit test results reports'){
+            steps {
+                dir("${WORKSPACE}/${podmanImagesRepo}/seleniumTests"){
+                    junit testResults: '**/target/*-reports/TEST-*.xml', skipPublishingChecks: true
+                }
+            }
+        }
+        stage('create tag') {
+            steps {
+                dir("${WORKSPACE}/${podmanImagesRepo}") {
+                    script {
+                        sh """
+                        git tag -a ${N_K_F_V} -m "tagged ${N_K_F_V}"
+                        git tag -l
+                        """
+                    }
+                }
+            }
+        }
+        stage('push pullrequest branch'){
+            steps{
+                 dir("${WORKSPACE}/${podmanImagesRepo}"){
+                     script {
+                        githubscm.pushObject('origin', PR_BRANCH)
+                     }
+                 }
+            }
+        }
+        stage('push tag'){
+            steps{
+                 dir("${WORKSPACE}/${podmanImagesRepo}"){
+                     script {
+                        githubscm.pushRemoteTag('origin', "${N_K_F_V}")
+                     }
+                 }
+            }
+        }
+        stage('create pullrequest'){
+            steps{
+                dir("${WORKSPACE}/${podmanImagesRepo}"){
+                    script {
+                        githubscm.createPR(COMMIT_MSG,PR_BODY,TARGET_BRANCH)
+                   }
+                }
+            }
+        }
+        stage('push images to quay.io') {
+            steps {
+                dir("${WORKSPACE}/${podmanImagesRepo}"){
+                    withCredentials([usernamePassword(credentialsId: "${KIECREDS}", usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PWD')]) {
+                        script {
+                            def images=[
+                                [id: "kiegroup/kie-server"] ,
+                                [id: "kiegroup/kie-server-showcase"] ,
+                                [id: "kiegroup/business-central-workbench"],
+                                [id: "kiegroup/business-central-workbench-showcase"],
+                                [id: "kiegroup/jbpm-server-full"]
+                            ]
+                            sh 'podman login -u="{REGISTRY_USER}" -p="${REGSITRY_PWD}" quay.io'
+                            sh 'podman images'
+                            images.each{image ->
+                                script{
+                                    sh "podman tag localhost/${image.id}:${N_K_F_V} quay.io/${image.id}:${N_K_F_V}"
+                                    sh "podman tag localhost/${image.id}:${N_K_F_V} quay.io/${image.id}:latest"
+                                    sh "podman push quay.io/${image.id}:${N_K_F_V}"
+                                    sh "podman push quay.io/${image.id}:latest"
+                                }
+                            }
+                        }
+                        sh 'podman images'
+                    }
+                }
+            }
+        }
+    }
+    post {
+        failure {
+            emailext body: " \n" +
+                            "Tests of podman images for ${N_K_F_V} upgrade failed." +
+                            " \n" +
+                            "Please look here: ${BUILD_URL}consoleText" +
+                            " \n" +
+                            "LOG: attached", subject: "podman tests for ${N_K_F_V} failed", to: "mbiarnes@redhat.com", attachLog:true
+            archiveArtifacts artifacts: '**/firef.log, **/image_*.png, **/eap_*.log', allowEmptyArchive: true
+        }
+        success {
+            emailext body: " \n" +
+                            "Tests of podman images for ${N_K_F_V} upgrade were successful.", subject: "podman tests for ${N_K_F_V} was successful", to: "mbiarnes@redhat.com"
+        }
+        unstable {
+            emailext body: " \n" +
+                            "Tests of podman images for ${N_K_F_V} upgrade were unstable." +
+                            " \n" +
+                            "Please look here: ${BUILD_URL}testReport" +
+                            " \n" +
+                            "LOG: attached", subject: "podman tests for ${N_K_F_V} failed", to: "mbiarnes@redhat.com", attachLog:true
+            archiveArtifacts artifacts: '**/firef_*.log, **/image_*.png, **/eap_*.log', allowEmptyArchive: true
+        }
+    }
+}
+
+void checkoutPodmanImagesRepo() {
+    dir(podmanImagesRepo) {
+        checkout(githubscm.resolveRepository(podmanImagesRepo, GIT_AUTHOR, TARGET_BRANCH, false))
+    }
+}
