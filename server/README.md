@@ -28,9 +28,9 @@ Introduction
 The image contains:
 
 * JBoss Wildfly 23.0.2.Final
-* jBPM Workbench 7.66.0.Final
-* KIE Server 7.66.0.Final
-* jBPM Case Management Showcase 7.66.0.Final
+* jBPM Workbench 7.77.7.Test
+* KIE Server 7.77.7.Test
+* jBPM Case Management Showcase 7.77.7.Test
 
 This is a **ready to run Docker image for jBPM Workbench**. Just run it and try the jBPM Workbench!
 
@@ -182,11 +182,11 @@ Try:
 Notes
 -----
 
-* jBPM Workbench version is `7.66.0.Final`
+* jBPM Workbench version is `7.77.7.Test`
 * The context path for jBPM Workbench web application is `business-central`
-* KIE Server version is `7.66.0.Final`
+* KIE Server version is `7.77.7.Test`
 * The context path for KIE Server web application is `kie-server`
-* jBPM Case Management Showcase version is `7.66.0.Final`
+* jBPM Case Management Showcase version is `7.77.7.Test`
 * The context path for jBPM Case Management Showcase web application is `jbpm-casemgmt`
 * Examples and demos are always available, also when not connected to internet
 * No support for clustering
@@ -200,6 +200,6 @@ Notes
 Release notes
 --------------
 
-**7.66.0.Final**
+**7.77.7.Test**
 
-* See release notes for [jBPM](http://docs.jboss.org/jbpm/release/7.66.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [jBPM](http://docs.jboss.org/jbpm/release/7.77.7.Test/jbpm-docs/html_single/#_jbpmreleasenotes)
