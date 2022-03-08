@@ -1,0 +1,174 @@
+@Library('jenkins-pipeline-shared-libraries')_
+import org.jenkinsci.plugins.workflow.libs.Library
+import org.kie.jenkins.MavenCommand
+import org.kie.jenkins.MavenStagingHelper
+
+AGENT_LABEL="kie-rhel7-priority"
+mvnTool="${MVN_TOOL}"
+jdkTool="${JAVA_TOOL}"
+N_K_F_V="${NEW_KIE_FINAL_VERSION}"
+C_K_F_V="${CURRENT_KIE_FINAL_VERSION}"
+dockerImagesRepo="business-central"
+GIT_AUTHOR="jboss-dockerfiles"
+TARGET_BRANCH="main"
+COMMIT_MSG="bumped up kie-version to ${NEW_KIE_FINAL_VERSION}"
+PR_BRANCH="bump_up_version_to_${NEW_KIE_FINAL_VERSION}"
+PR_BODY="Please review and merge"
+
+
+pipeline {
+    agent {
+        label "$AGENT_LABEL"
+    }
+    options{
+        timestamps()
+    }
+    tools {
+        maven "$mvnTool"
+        jdk "$jdkTool"
+    }
+    stages {
+        stage('CleanWorkspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('clone business-central') {
+            steps {
+                script {
+                    checkoutDockerImagesRepo()
+                }
+            }
+        }
+        stage('create branch for PR'){
+            steps{
+                dir("${WORKSPACE}/${dockerImagesRepo}"){
+                    script{
+                        githubscm.createBranch(PR_BRANCH)
+                    }
+                }
+            }
+        }
+        /*stage('upgrade versions') {
+            steps {
+                dir("${WORKSPACE}/${dockerImagesRepo}") {
+                    script {
+                        sh "./script/update-version.sh ${C_K_F_V} ${N_K_F_V}"
+                    }
+                }
+            }
+        }
+        stage('add and commit kie-version'){
+            steps{
+                dir("${WORKSPACE}/${dockerImagesRepo}"){
+                    script{
+                        githubscm.commitChanges(COMMIT_MSG)
+                    }
+                }
+            }
+        }
+        stage ('build docker-images') {
+            steps {
+                dir("${WORKSPACE}/${dockerImagesRepo}") {
+                    script {
+                        sh '''
+                        cd base
+                        ./build.sh
+                        cd ../showcase
+                        ./build.sh
+                        cd ../kie-server/base
+                        ./build.sh
+                        cd ../showcase
+                        ./build.sh
+                        cd ../../server
+                        ./build.sh
+                        podman images '''
+                    }
+               }
+            }
+        }*/
+        stage('test docker images') {
+            steps {
+                script {
+                    echo "do nothing here"
+                }
+            }
+        }
+        //send mail if tests fail
+        stage('send mail only if tests fail') {
+            when {
+                expression { currentBuild.currentResult == 'FAILURE'}
+            }
+            steps {
+                emailext body: " \n" +
+                "Tests of docker images for ${N_K_F_V} upgrade failed." +
+                " \n" +
+                "Please look here: ${BUILD_URL}consoleText" +
+                " \n" +
+                "LOG: attached", subject: "docker tests for ${N_K_F_V} failed", to: "mbiarnes@redhat.com", attachLog:true
+            }
+        }
+        stage('create tag') {
+            steps {
+                dir("${WORKSPACE}/${dockerImagesRepo}") {
+                    script {
+                        sh """
+                        git tag -a ${N_K_F_V}_TEST -m "tagged ${N_K_F_V}"
+                        git tag -l
+                        """
+                    }
+                }
+            }
+        }
+        stage('push pullrequest branch'){
+            steps{
+                 dir("${WORKSPACE}/${dockerImagesRepo}"){
+                     script {
+                        githubscm.pushObject('origin', PR_BRANCH)
+                     }
+                 }
+            }
+        }
+        stage('push tag'){
+            steps{
+                 dir("${WORKSPACE}/${dockerImagesRepo}"){
+                     script {
+                        githubscm.pushRemoteTag('origin', "${N_K_F_V}_TEST")
+                     }
+                 }
+            }
+        }
+        stage('create pullrequest'){
+            steps{
+                dir("${WORKSPACE}/${dockerImagesRepo}"){
+                    script {
+                        githubscm.createPR(COMMIT_MSG,PR_BODY,TARGET_BRANCH)
+                   }
+                }
+            }
+        }
+        stage('push images to quay.io') {
+            steps {
+                script {
+                    echo "do nothing here"
+                }
+            }
+        }
+    }
+    post {
+        always {
+            emailext body: " \n" +
+                            "Tests of docker images for ${N_K_F_V} upgrade failed." +
+                            " \n" +
+                            "Please look here: ${BUILD_URL}consoleText" +
+                            " \n" +
+                            "LOG: attached", subject: "docker tests for ${N_K_F_V} failed", to: "mbiarnes@redhat.com", attachLog:true
+        }
+    }
+}
+
+void checkoutDockerImagesRepo() {
+    dir(dockerImagesRepo) {
+        checkout(githubscm.resolveRepository(dockerImagesRepo, GIT_AUTHOR, TARGET_BRANCH, false))
+    }
+}
