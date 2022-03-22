@@ -3,7 +3,7 @@
 #########################################################################
 
 ####### BASE ############
-FROM jboss/wildfly:23.0.2.Final
+FROM quay.io/wildfly/wildfly:23.0.2.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
