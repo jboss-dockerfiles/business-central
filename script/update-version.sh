@@ -36,8 +36,7 @@ echo "business-central/base/" > repos.txt
 echo "business-central/showcase/" >> repos.txt
 echo "business-central/kie-server/base/" >> repos.txt
 echo "business-central/kie-server/showcase/" >> repos.txt
-echo "business-central/server" >> repos.txt
-echo "business-server/docker-compose-examples" >> repos.txt
+echo "business-central/server/" >> repos.txt
 
 cat repos.txt
 
@@ -50,8 +49,10 @@ for pathTo in $PATH_LIST ; do
   sed -i -E "s/$current_final/$new_final/g" ../$pathTo/Dockerfile # changes the version in all Dockerfiles
   sed -i -E "s/$current_final/$new_final/g" ../$pathTo/build.sh # change IMAGE_TAG
   sed -i -E "s/$current_final/$new_final/g" ../$pathTo/start.sh # change IMAGE_TAG
-  sed -i -E "s/$current_final/$new_final/g" ../$pathTo/bc-kie-server.yml # change IMAGE_TAG
 done
+
+sed -i -E "s/$current_final/$new_final/g" ../business-central/docker-compose-examples/bc-kie-server.yml # change IMAGE_TAG
+
 
 rm -rf repos.txt
 
