@@ -139,12 +139,12 @@ In order to extend this image, your Dockerfile must inherit from:
 
 These are the steps to create custom users and roles by using realm files in Widlfly:                  
 
-1.- copy the whole dir https://github.com/kiegroup/business-central/tree/7.67.0.Final/showcase/etc/kie-fs-realm-users to<br>
+1.- copy the whole dir https://github.com/jboss-dockerfiles/business-central/tree/7.67.0.Final/showcase/etc/kie-fs-realm-users to<br>
 $JBOSS_HOME/standalone/configuration/
 
 kie-fs-realm-users should be owned by user jboss (chown jboss:jboss -R $JBOSS_HOME/standalone/configuration/kie-fs-realm-users)
 
-2.- copy the file https://github.com/mbiarnes/business-central/blob/7.67.0.Final/showcase/etc/jbpm-custom.cli to<br>
+2.- copy the file https://github.com/jboss-dockerfiles/business-central/blob/7.67.0.Final/showcase/etc/jbpm-custom.cli to<br>
 $JBOSS_HOME/bin/
 
 With this you have created the users
