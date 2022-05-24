@@ -24,7 +24,7 @@ Introduction
 The image contains:  
              
 * JBoss Wildfly 23.0.2.Final
-* KIE Business-Central Workbench 7.69.0.Final
+* KIE Business-Central Workbench 7.70.0.Final
 
 This image provides the KIE Business-Central Workbench. It's intended to be extended so you can add your custom configurations.
 
@@ -139,12 +139,12 @@ In order to extend this image, your Dockerfile must inherit from:
 
 These are the steps to create custom users and roles by using realm files in Widlfly:                  
 
-1.- copy the whole dir https://github.com/jboss-dockerfiles/business-central/tree/7.69.0.Final/showcase/etc/kie-fs-realm-users to<br>
+1.- copy the whole dir https://github.com/jboss-dockerfiles/business-central/tree/7.70.0.Final/showcase/etc/kie-fs-realm-users to<br>
 $JBOSS_HOME/standalone/configuration/
 
 kie-fs-realm-users should be owned by user jboss (chown jboss:jboss -R $JBOSS_HOME/standalone/configuration/kie-fs-realm-users)
 
-2.- copy the file https://github.com/jboss-dockerfiles/business-central/blob/7.69.0.Final/showcase/etc/jbpm-custom.cli to<br>
+2.- copy the file https://github.com/jboss-dockerfiles/business-central/blob/7.70.0.Final/showcase/etc/jbpm-custom.cli to<br>
 $JBOSS_HOME/bin/
 
 With this you have created the users
@@ -186,7 +186,7 @@ Notes
 -----
 
 * The context path for KIE Business-Central Workbench web application is `business-central`
-* KIE Business-Central Workbench version is `7.69.0.Final`
+* KIE Business-Central Workbench version is `7.70.0.Final`
 * No users or roles are configured by default               
 * No support for clustering                
 * Use of embedded H2 database server by default               
@@ -199,6 +199,6 @@ Notes
 Release notes
 --------------
 
-**7.69.0.Final**
+**7.70.0.Final**
 
-* See release notes for [Business-Central](http://docs.jboss.org/jbpm/release/7.69.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [Business-Central](http://docs.jboss.org/jbpm/release/7.70.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
