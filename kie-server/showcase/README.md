@@ -35,17 +35,17 @@ Since `--link` is legacy we had to change the previous command by a simple docke
 
 The JBoss KIE Execution server is intended to be used as a standalone runtime execution environment managed by a Business-Central Workbench application that acts as a controller.             
 
-For running the container of Business-Central Workbench application as kie-server remote controller please run:                                 
-    podman-compose -f bc-kie-server.yml up
+For running the container of Business-Central Workbench application as kie-server remote controller please:
+
+    1. check the IP address of the server where the podman-compose file should run by : hostname -I | awk '{print $1}'
+    2. replace the $IP_ADRESS in bc-kie-server.yml (https://github.com/jboss-dockerfiles/business-central/blob/main/docker-compose-examples/bc-kie-server.yml) by the IP address
+    3. run: podman-compose -f PATH_TO/bc-kie-server.yml up
+
 * where bc-kie-server.yml is [bc-kie-server.yml](https://github.com/jboss-dockerfiles/business-central/blob/main/docker-compose-examples/bc-kie-server.yml)
 
-Once container and web applications started, the application is available at:              
+Once container and web applications started, the **REST API service** is located at:               
 
-    http://localhost:8081/kie-server
-
-The **REST API service** is located at:               
-
-    http://localhost:8081/kie-server/services/rest/server/
+    http://$IP-ADDRESS:8180/kie-server/services/rest/server/
 
 Users and roles
 ----------------
