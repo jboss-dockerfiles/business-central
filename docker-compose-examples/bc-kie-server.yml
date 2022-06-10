@@ -1,7 +1,7 @@
 version: '3'
 services:
   business-central:
-    image: localhost/kiegroup/business-central-workbench-showcase:7.70.0.Final
+    image: localhost/kiegroup/business-central-workbench-showcase:7.71.0.Final
     ports:
       - "8080:8080"
       - "8001:8001"
@@ -9,7 +9,7 @@ services:
       KIE_SERVER_LOCATION: http://kie-server:8080/kie-server/services/rest/server
 
   kie-server:
-    image: localhost/kiegroup/kie-server-showcase:7.70.0.Final
+    image: localhost/kiegroup/kie-server-showcase:7.71.0.Final
     environment:
       KIE_SERVER_ID: sample-server
       KIE_SERVER_LOCATION: http://kie-server:8080/kie-server/services/rest/server
