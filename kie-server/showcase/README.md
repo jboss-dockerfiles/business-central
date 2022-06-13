@@ -5,7 +5,7 @@ We changed the location for our docker images from Docker to [RedHat Quay](https
 
 From the versions > 7.61.0.Final on the images will only be available on Quay.
 
-More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.70.0.Final/drools-docs/html_single/#_ch.kie.server).
+More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.71.0.Final/drools-docs/html_single/#_ch.kie.server).
 
 Table of contents
 ------------------
@@ -25,7 +25,7 @@ Introduction
 The image contains: 
               
 * JBoss Wildfly 23.0.2.Final
-* KIE Server 7.70.0.Final
+* KIE Server 7.71.0.Final
 
 This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the business-central runtime execution server!                   
 
@@ -35,17 +35,17 @@ Since `--link` is legacy we had to change the previous command by a simple docke
 
 The JBoss KIE Execution server is intended to be used as a standalone runtime execution environment managed by a Business-Central Workbench application that acts as a controller.             
 
-For running the container of Business-Central Workbench application as kie-server remote controller please run:                                 
-    podman-compose -f bc-kie-server.yml up
+For running the container of Business-Central Workbench application as kie-server remote controller please:
+
+    1. check the IP address of the server where the podman-compose file should run by : hostname -I | awk '{print $1}'
+    2. replace the $IP_ADRESS in bc-kie-server.yml (https://github.com/jboss-dockerfiles/business-central/blob/main/docker-compose-examples/bc-kie-server.yml) by the IP address
+    3. run: podman-compose -f PATH_TO/bc-kie-server.yml up
+
 * where bc-kie-server.yml is [bc-kie-server.yml](https://github.com/jboss-dockerfiles/business-central/blob/main/docker-compose-examples/bc-kie-server.yml)
 
-Once container and web applications started, the application is available at:              
+Once container and web applications started, the **REST API service** is located at:               
 
-    http://localhost:8081/kie-server
-
-The **REST API service** is located at:               
-
-    http://localhost:8081/kie-server/services/rest/server/
+    http://$IP-ADDRESS:8180/kie-server/services/rest/server/
 
 Users and roles
 ----------------
@@ -85,7 +85,7 @@ Notes
 -----
 
 * The context path for Drools KIE Server application services is `kie-server`
-* KIE Server version is `7.70.0.Final`
+* KIE Server version is `7.71.0.Final`
 * In order to perform container linking with a jBPM / Drools Workbench image, the link alias must be `kie-wb`       
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
@@ -96,6 +96,6 @@ Notes
 Release notes
 -------------
 
-**7.70.0.Final**
+**7.71.0.Final**
 
-* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.70.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
+* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.71.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
