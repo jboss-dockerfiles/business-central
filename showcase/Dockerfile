@@ -19,7 +19,7 @@ ADD etc/jbpm-custom.cli $JBOSS_HOME/bin/jbpm-custom.cli
 
 # Added files are chowned to root user, change it to the jboss one.
 USER root
-RUN chown jboss:jboss $JBOSS_HOME/standalone/configuration/kie-fs-realm-users
+RUN chown -R jboss:jboss $JBOSS_HOME/standalone/configuration/kie-fs-realm-users
 
 # Switchback to jboss user
 USER jboss
