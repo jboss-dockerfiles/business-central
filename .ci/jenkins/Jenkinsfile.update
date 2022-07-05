@@ -1,7 +1,7 @@
 @Library('jenkins-pipeline-shared-libraries')_
 import org.jenkinsci.plugins.workflow.libs.Library
 
-AGENT_LABEL="kie-rhel8 && !master"
+AGENT_LABEL="kie-rhel7 && !master"
 mvnTool="${env.MVN_TOOL}"
 jdkTool="${env.JAVA_TOOL}"
 N_K_F_V="${env.NEW_KIE_FINAL_VERSION}"
@@ -242,7 +242,7 @@ pipeline {
                                 [id: "kiegroup/business-central-workbench-showcase"],
                                 [id: "kiegroup/jbpm-server-full"]
                             ]
-                            sh 'podman login -u="{REGISTRY_USER}" -p="${REGSITRY_PWD}" quay.io'
+                            sh "podman login -u=${REGISTRY_USER} -p=${REGISTRY_PWD} quay.io"
                             sh 'podman images'
                             images.each{image ->
                                 script{
