@@ -1,7 +1,7 @@
 @Library('jenkins-pipeline-shared-libraries')_
 import org.jenkinsci.plugins.workflow.libs.Library
 
-AGENT_LABEL="kie-rhel7 && !master"
+AGENT_LABEL="kie-rhel8 && !master"
 mvnTool="${env.MVN_TOOL}"
 jdkTool="${env.JAVA_TOOL}"
 N_K_F_V="${env.NEW_KIE_FINAL_VERSION}"
@@ -146,7 +146,7 @@ pipeline {
                                         if(!fileExists(imageTestFile)) {
                                           throw new RuntimeException("The file ${imageTestFile} does not exist")
                                         }
-                                        def mvnArg = "-Dtest=${image.class} -Dmaven.test.failure.ignore=true"
+                                        def mvnArg = "-Dtest=${image.class}"
                                         sh "mvn -fae clean install ${mvnArg}"
                                         print "Test was successfully executed"
                                     }
