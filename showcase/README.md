@@ -1,4 +1,4 @@
-Business-Central Showcase Docker image
+Business-Central Workbench Showcase Docker image
 ============================================
 
 We changed the location for our docker images from Docker to [RedHat Quay](https://quay.io/repository/kiegroup/business-central-workbench-showcase)
