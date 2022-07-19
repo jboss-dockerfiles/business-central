@@ -250,6 +250,10 @@ pipeline {
                                     sh "podman tag localhost/${image.id}:${N_K_F_V} quay.io/${image.id}:latest"
                                     sh "podman push quay.io/${image.id}:${N_K_F_V}"
                                     sh "podman push quay.io/${image.id}:latest"
+                                    def imagedescription = readFile "${image.readmefile}"
+                                    def newimagedescription = imagedescription.replaceAll("'", "\\\\'")
+                                    println newimagedescription
+                                    sh""" curl --header -H 'Accept: application/json' -H 'Content-type: application/json' -H "Authorization: Bearer ${REGISTRY_PWD}" -X PUT --data-urlencode \$'{"description":"${newimagedescription}"}' https://quay.io/api/v1/repository/${image.id} """
                                 }
                             }
                         }
