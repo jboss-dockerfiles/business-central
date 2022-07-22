@@ -5,7 +5,7 @@
 # *********************************************************************
 
 IMAGE_NAME="kiegroup/business-central-workbench-showcase"
-IMAGE_TAG="7.72.0.Final"
+IMAGE_TAG="7.73.0.Final"
 
 
 # Build the container image.
