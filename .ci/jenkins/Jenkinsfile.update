@@ -236,11 +236,11 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: "${KIECREDS}", usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PWD')]) {
                         script {
                             def images=[
-                                [id: "kiegroup/kie-server"] ,
-                                [id: "kiegroup/kie-server-showcase"] ,
-                                [id: "kiegroup/business-central-workbench"],
-                                [id: "kiegroup/business-central-workbench-showcase"],
-                                [id: "kiegroup/jbpm-server-full"]
+                                [id: "kiegroup/kie-server", readmefile: "kie-server/base/README.md"] ,
+                                [id: "kiegroup/kie-server-showcase", readmefile: "kie-server/showcase/README.md] ,
+                                [id: "kiegroup/business-central-workbench", readmefile: "base/README.md"],
+                                [id: "kiegroup/business-central-workbench-showcase", readmefile: "showcase/README.md"],
+                                [id: "kiegroup/jbpm-server-full", readmefile: "server/README.md"]
                             ]
                             sh "podman login -u=${REGISTRY_USER} -p=${REGISTRY_PWD} quay.io"
                             sh 'podman images'
