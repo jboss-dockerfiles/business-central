@@ -5,7 +5,7 @@
 # ********************************************
 
 IMAGE_NAME="kiegroup/kie-server"
-IMAGE_TAG="7.73.0.Final"
+IMAGE_TAG="7.74.0.Final"
 
 
 # Build the container image.

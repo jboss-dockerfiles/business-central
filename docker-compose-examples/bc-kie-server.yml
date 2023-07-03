@@ -2,12 +2,12 @@ version: '3'
 
 services:
   business-central:
-    image: localhost/kiegroup/business-central-workbench-showcase:7.73.0.Final
+    image: localhost/kiegroup/business-central-workbench-showcase:7.74.0.Final
     ports:
       - "8080:8080"
       - "8001:8001"
   kie-server:
-    image: localhost/kiegroup/kie-server-showcase:7.73.0.Final
+    image: localhost/kiegroup/kie-server-showcase:7.74.0.Final
     ports:
       - "8180:8080"
       - "8007:8001"
