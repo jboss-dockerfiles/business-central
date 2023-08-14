@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="business-central"
 IMAGE_NAME="kiegroup/business-central-workbench"
-IMAGE_TAG="7.74.0.Final"
+IMAGE_TAG="7.74.1.Final"
 
 
 
