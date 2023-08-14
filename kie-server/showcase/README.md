@@ -5,7 +5,7 @@ We changed the location for our docker images from Docker to [RedHat Quay](https
 
 From the versions > 7.61.0.Final on the images will only be available on Quay.
 
-More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.74.0.Final/drools-docs/html_single/#_ch.kie.server).
+More information of KIE Server available at [KIE documentation](http://docs.jboss.org/drools/release/7.74.1.Final/drools-docs/html_single/#_ch.kie.server).
 
 Table of contents
 ------------------
@@ -25,7 +25,7 @@ Introduction
 The image contains: 
               
 * JBoss Wildfly 23.0.2.Final
-* KIE Server 7.74.0.Final
+* KIE Server 7.74.1.Final
 
 This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the business-central runtime execution server!                   
 
@@ -85,7 +85,7 @@ Notes
 -----
 
 * The context path for Drools KIE Server application services is `kie-server`
-* KIE Server version is `7.74.0.Final`
+* KIE Server version is `7.74.1.Final`
 * In order to perform container linking with a jBPM / Drools Workbench image, the link alias must be `kie-wb`       
 * No support for clustering                
 * This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
@@ -96,6 +96,6 @@ Notes
 Release notes
 -------------
 
-**7.74.0.Final**
+**7.74.1.Final**
 
-* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.74.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
+* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.74.1.Final/drools-docs/html_single/index.html#_ch.kie.server)

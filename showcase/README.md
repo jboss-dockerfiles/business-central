@@ -25,7 +25,7 @@ Introduction
 The image contains:
 
 * JBoss Wildfly 23.0.2.Final
-* KIE Business-Central Workbench 7.74.0.Final
+* KIE Business-Central Workbench 7.74.1.Final
 
 This image inherits from `quay.io/kiegroup/business-central-workbench:latest` and provides some additional configurations:
 
@@ -186,7 +186,7 @@ Notes
 -----
 
 * The context path for KIE Business-Central Workbench web application is `business-central`
-* KIE Business-Central Workbench version is `7.74.0.Final`
+* KIE Business-Central Workbench version is `7.74.1.Final`
 * Examples and demos are always available, also when not connected to internet
 * No support for clustering
 * Use of embedded H2 database server by default
@@ -199,6 +199,6 @@ Notes
 Release notes
 --------------
 
-**7.74.0.Final**
+**7.74.1.Final**
 
-* See release notes for [Business-Central](http://docs.jboss.org/jbpm/release/7.74.0.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
+* See release notes for [Business-Central](http://docs.jboss.org/jbpm/release/7.74.1.Final/jbpm-docs/html_single/#_jbpmreleasenotes)
